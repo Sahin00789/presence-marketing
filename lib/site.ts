@@ -7,7 +7,7 @@ export const site = {
   name: "presence",
   tagline: "Attendance that runs itself.",
   description:
-    "GPS-geofenced clock-in, on-device face verification, shift rosters, an append-only salary ledger and one-tap monthly payroll for small businesses.",
+    "GPS-geofenced clock-in, on-device face verification, shift rosters, append-only salary ledger, live exception alerts, and owner-locked monthly payroll for small businesses.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://presence.app",
   apkUrl:
     process.env.NEXT_PUBLIC_APK_URL ??
@@ -24,7 +24,10 @@ export const site = {
 
 export const navLinks = [
   { href: "#features", label: "Features" },
-  { href: "#ledger", label: "Salary ledger" },
-  { href: "#how-it-works", label: "How it works" },
+  { href: "#demo", label: "App Demo" },
+  { href: "#calculator", label: "ROI Savings" },
+  { href: "#ledger", label: "Salary Ledger" },
+  { href: "#comparison", label: "Why presence" },
+  { href: "#how-it-works", label: "How It Works" },
   { href: "#faq", label: "FAQ" },
 ] as const;

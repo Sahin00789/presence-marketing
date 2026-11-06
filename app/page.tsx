@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { AdSlot } from "@/components/AdSlot";
+import { ComparisonSection } from "@/components/ComparisonSection";
 import { DownloadButtons } from "@/components/DownloadButtons";
+import { FaqSection } from "@/components/FaqSection";
+import { Header } from "@/components/Header";
 import {
-  ArrowRightIcon,
   BellIcon,
   CalendarIcon,
   ChartIcon,
@@ -14,8 +16,12 @@ import {
   ShieldIcon,
   WalletIcon,
 } from "@/components/Icons";
+import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { PhoneMockup } from "@/components/PhoneMockup";
-import { navLinks, site } from "@/lib/site";
+import { RoiCalculator } from "@/components/RoiCalculator";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { UseCasesSection } from "@/components/UseCasesSection";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `${site.name} — ${site.tagline}`,
@@ -23,23 +29,23 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { value: "50 m", label: "Default premises geofence" },
+  { value: "50 m", label: "Default premises geofence radius" },
   { value: "~10 min", label: "Live location checks on shift" },
-  { value: ">3", label: "Outside pings before an alert" },
-  { value: "100%", label: "Integer-rupee salary ledger" },
+  { value: ">3", label: "Outside pings before owner alert" },
+  { value: "100%", label: "Integer-rupee salary ledger (₹)" },
 ];
 
 const features = [
   {
     icon: FaceIcon,
     title: "Face + GPS clock-in",
-    body: "Employees clock in only when they are inside the premises geofence and their face matches on-device. No buddy punching, no shared PINs.",
+    body: "Employees clock in only when they are inside the premises geofence and their face matches on-device via ONNX Runtime. No buddy punching, no shared PINs.",
     tone: "indigo",
   },
   {
     icon: MapPinIcon,
     title: "Live geofence monitoring",
-    body: "Active shifts get a location check roughly every 10 minutes. Three consecutive outside readings raise an exception and notify the owner.",
+    body: "Active shifts receive periodic location pings roughly every 10 minutes. Three consecutive outside readings raise an alert and notify the owner.",
     tone: "emerald",
   },
   {
@@ -51,13 +57,13 @@ const features = [
   {
     icon: WalletIcon,
     title: "Append-only salary ledger",
-    body: "Every present day, holiday, off-day and overtime entry is written to an earning ledger that links back to its source record.",
+    body: "Every present day, holiday, off-day and overtime entry is written to an earning ledger in whole Indian Rupees (₹) that links back to its source record.",
     tone: "indigo",
   },
   {
     icon: ChartIcon,
     title: "Monthly payroll, locked",
-    body: "The owner reviews the month and locks payroll. Employees get an itemised payslip they can check against their own ledger.",
+    body: "The owner reviews the month and locks payroll with one tap. Employees get an itemised payslip they can check against their own ledger.",
     tone: "emerald",
   },
   {
@@ -77,45 +83,18 @@ const ledgerRows = [
 const steps = [
   {
     title: "Set up the organisation",
-    body: "Register with email OTP or Google, create the organisation and add each premises with its address and 50 m geofence.",
+    body: "Register with Email 6-Digit OTP or Google OAuth, create the organisation and add each premises with its address and 50 m geofence.",
     icon: ShieldIcon,
   },
   {
     title: "Add people and rosters",
-    body: "Add employees to a premises, enrol their face once on-device, then assign weekday shifts and pay rates.",
+    body: "Add employees to a premises, enrol their face once on-device, then assign weekday shifts and present/leave/off-day pay rates.",
     icon: FaceIcon,
   },
   {
     title: "Run the month",
-    body: "The team clocks in with face + GPS. You resolve exceptions live, then review the ledger and lock payroll.",
+    body: "The team clocks in with face + GPS. You resolve exceptions live, review the ledger, and lock monthly payroll.",
     icon: WalletIcon,
-  },
-];
-
-const faqs = [
-  {
-    q: "How do employees get the app?",
-    a: "Download the APK from this page and install it on the Android phone. The owner adds each employee to a premises first; employees then sign in with email OTP or Google and are ready to clock in.",
-  },
-  {
-    q: "Does the app work without internet?",
-    a: "Face verification runs entirely on the device with ONNX Runtime, so a clock-in can be captured offline and synced. Attendance and ledger writes still need the server, so the app queues locally and uploads when connectivity returns.",
-  },
-  {
-    q: "Are employee photos stored?",
-    a: "No. Face templates are reduced to numerical embeddings on the device, and raw camera frames are discarded after feature extraction. Only the embedding is transmitted and stored.",
-  },
-  {
-    q: "What happens if someone leaves the premises mid-shift?",
-    a: "While a shift is active the app checks location about every 10 minutes. Three consecutive outside readings raise a monitoring exception and alert the owner. If no action is taken before the shift ends, attendance defaults to present.",
-  },
-  {
-    q: "How is salary calculated?",
-    a: "The backend is authoritative. Shift, holiday, off-day and overtime earnings are written to an append-only ledger in whole rupees, then consolidated into a monthly payroll the owner locks.",
-  },
-  {
-    q: "Can one person use two phones?",
-    a: "No. Only one active device session is allowed per user. Signing in on a new phone revokes the previous session immediately.",
   },
 ];
 
@@ -133,12 +112,15 @@ const structuredData = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
     },
     {
-      "@type": "FAQPage",
-      mainEntity: faqs.map((item) => ({
-        "@type": "Question",
-        name: item.q,
-        acceptedAnswer: { "@type": "Answer", text: item.a },
-      })),
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/icon.svg`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: site.contactEmail,
+        contactType: "customer service",
+      },
     },
   ],
 };
@@ -146,39 +128,10 @@ const structuredData = {
 export default function HomePage() {
   return (
     <>
-      <div className="topbar">
-        <span className="topbar-dot" aria-hidden="true" />
-        <p>
-          <strong>Now available for Android.</strong> Face + GPS verified attendance, shifts and payroll in one app.
-        </p>
-        <a href={site.apkUrl}>
-          Download free
-          <ArrowRightIcon className="icon-xs" />
-        </a>
-      </div>
-
-      <header className="site-header">
-        <div className="container header-inner">
-          <a className="brand" href="#top" aria-label={`${site.name} home`}>
-            <LogoMark className="brand-mark" />
-            <span className="brand-name">{site.name}</span>
-          </a>
-
-          <nav className="site-nav" aria-label="Main">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <a className="btn btn-primary btn-sm header-cta" href={site.apkUrl}>
-            Download app
-          </a>
-        </div>
-      </header>
+      <Header />
 
       <main id="main">
+        {/* HERO SECTION */}
         <section className="hero" id="top">
           <div className="container hero-grid">
             <div className="hero-copy">
@@ -191,22 +144,21 @@ export default function HomePage() {
                 <span className="hero-accent"> Payroll that adds up.</span>
               </h1>
               <p className="hero-lede">
-                {site.name} replaces the paper register with geofenced clock-ins, on-device face
-                verification, weekday shift rosters and a salary ledger that every employee can
-                check for themselves.
+                {site.name} replaces paper registers and expensive hardware with geofenced clock-ins,
+                on-device face verification, weekday shift rosters, and an append-only salary ledger.
               </p>
 
               <DownloadButtons />
 
               <ul className="hero-points">
                 <li>
-                  <CheckIcon className="icon-xs" /> No biometric hardware
+                  <CheckIcon className="icon-xs" /> Zero biometric hardware
                 </li>
                 <li>
-                  <CheckIcon className="icon-xs" /> Works offline
+                  <CheckIcon className="icon-xs" /> Offline clock-in support
                 </li>
                 <li>
-                  <CheckIcon className="icon-xs" /> One device per user
+                  <CheckIcon className="icon-xs" /> Single active device rule
                 </li>
               </ul>
             </div>
@@ -226,14 +178,29 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section" id="features">
+        {/* INTERACTIVE LIVE DEMO */}
+        <section className="section" id="demo">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Live App Simulator</p>
+              <h2>Experience presence in action</h2>
+              <p className="lede">
+                Explore how owners oversee premises and resolve alerts, while employees clock in securely with face + GPS verification.
+              </p>
+            </div>
+
+            <InteractiveDemo />
+          </div>
+        </section>
+
+        {/* FEATURES GRID */}
+        <section className="section section-muted" id="features">
           <div className="container">
             <div className="section-head">
               <p className="eyebrow">Everything in one app</p>
               <h2>Built for the way small teams actually work</h2>
               <p className="lede">
-                One place for the owner, the manager and the team. No spreadsheets to reconcile, no
-                separate attendance machine, no month-end guessing.
+                One place for owners, managers, and staff. No spreadsheets to reconcile, no separate hardware, no month-end guessing.
               </p>
             </div>
 
@@ -258,6 +225,14 @@ export default function HomePage() {
           <AdSlot />
         </div>
 
+        {/* ROI SAVINGS CALCULATOR */}
+        <section className="section" id="calculator">
+          <div className="container">
+            <RoiCalculator />
+          </div>
+        </section>
+
+        {/* SALARY LEDGER SECTION */}
         <section className="section section-muted" id="ledger">
           <div className="container ledger-grid">
             <div className="ledger-copy">
@@ -265,8 +240,7 @@ export default function HomePage() {
               <h2>Every rupee, traceable to a shift</h2>
               <p className="lede">
                 Attendance writes earnings, never the other way around. Each entry points back to
-                the shift, holiday, off-day or overtime that created it — in whole rupees, with no
-                floating-point drift.
+                the shift, holiday, off-day or overtime that created it — in whole rupees, with zero floating-point drift.
               </p>
 
               <ul className="check-list">
@@ -294,7 +268,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <strong>Transparent for employees</strong>
-                    <p>Employees see the same ledger the payroll engine uses — no surprises.</p>
+                    <p>Employees see the exact same ledger the payroll engine uses — no surprises.</p>
                   </div>
                 </li>
               </ul>
@@ -335,7 +309,53 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section" id="how-it-works">
+        {/* COMPARISON MATRIX */}
+        <section className="section" id="comparison">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Why presence</p>
+              <h2>How presence compares to alternatives</h2>
+              <p className="lede">
+                Stop paying tens of thousands for hardware machines or complex enterprise software subscriptions.
+              </p>
+            </div>
+
+            <ComparisonSection />
+          </div>
+        </section>
+
+        {/* INDUSTRY USE CASES */}
+        <section className="section section-muted" id="use-cases">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Tailored for your business</p>
+              <h2>Designed for all types of workforce setups</h2>
+              <p className="lede">
+                Whether you manage a single shop or dozens of field teams, presence adapts to your exact setup.
+              </p>
+            </div>
+
+            <UseCasesSection />
+          </div>
+        </section>
+
+        {/* REVIEWS & TESTIMONIALS */}
+        <section className="section" id="reviews">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Owner Feedback</p>
+              <h2>Trusted by business owners and ops leads</h2>
+              <p className="lede">
+                Here is how presence helps owners run verified attendance and automated payroll effortlessly.
+              </p>
+            </div>
+
+            <TestimonialsSection />
+          </div>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="section section-muted" id="how-it-works">
           <div className="container">
             <div className="section-head">
               <p className="eyebrow">How it works</p>
@@ -363,14 +383,15 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* SECURITY & PRIVACY */}
         <section className="section section-dark" id="security">
           <div className="container security-grid">
             <div>
               <p className="eyebrow eyebrow-on-dark">Privacy &amp; security</p>
-              <h2>Monitoring, without the surveillance feel</h2>
+              <h2>Verification, without surveillance feel</h2>
               <p className="lede lede-on-dark">
-                Verification happens on the employee&apos;s own phone. The backend only receives what
-                payroll actually needs — never raw camera frames or continuous location history.
+                Verification happens on the employee&apos;s own phone. The backend receives what
+                payroll needs — never raw camera frames or continuous location tracking history.
               </p>
             </div>
 
@@ -378,45 +399,34 @@ export default function HomePage() {
               <div className="security-item">
                 <FaceIcon className="icon" />
                 <h3>On-device face match</h3>
-                <p>CameraX feeds a local ONNX model. The frame is discarded; only a numerical embedding is stored.</p>
+                <p>CameraX feeds a local ONNX model. The camera frame is discarded; only a 128-d numerical embedding is stored.</p>
               </div>
               <div className="security-item">
                 <MapPinIcon className="icon" />
                 <h3>Geofence, not tracking</h3>
-                <p>Location is read at clock-in and on the ~10-minute shift checks, then written to the attendance record.</p>
+                <p>Location is verified at clock-in and during ~10-minute shift checks within a 50m radius.</p>
               </div>
               <div className="security-item">
                 <LockIcon className="icon" />
                 <h3>Single-device sessions</h3>
-                <p>Rotating refresh tokens are hashed in the database. Signing in elsewhere revokes the old device.</p>
+                <p>Rotating refresh tokens are SHA-256 hashed in PostgreSQL. Signing in elsewhere revokes old device sessions.</p>
               </div>
             </div>
           </div>
         </section>
 
+        {/* FAQ SECTION */}
         <section className="section" id="faq">
-          <div className="container faq-grid">
-            <div className="faq-intro">
+          <div className="container">
+            <div className="section-head">
               <p className="eyebrow">FAQ</p>
-              <h2>Questions owners ask first</h2>
+              <h2>Frequently Asked Questions</h2>
               <p className="lede">
-                Still unsure? Email{" "}
-                <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> and we&apos;ll walk
-                through your shift setup.
+                Everything you need to know about setting up presence for your organization.
               </p>
             </div>
 
-            <div className="faq-list">
-              {faqs.map((item) => (
-                <details className="faq-item" key={item.q}>
-                  <summary>
-                    <span>{item.q}</span>
-                    <span className="faq-plus" aria-hidden="true" />
-                  </summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
+            <FaqSection />
           </div>
         </section>
 
@@ -424,6 +434,7 @@ export default function HomePage() {
           <AdSlot variant="card" label="Sponsored" />
         </div>
 
+        {/* DOWNLOAD CTA PANEL */}
         <section className="section" id="download">
           <div className="container">
             <div className="cta-panel">
@@ -432,8 +443,7 @@ export default function HomePage() {
                 <p className="eyebrow eyebrow-on-dark">Get the app</p>
                 <h2>Put the register away for good</h2>
                 <p className="lede lede-on-dark">
-                  Download {site.name} for Android, add your premises and run your first verified
-                  shift today.
+                  Download {site.name} for Android, add your premises, and run your first verified shift today.
                 </p>
                 <DownloadButtons tone="light" />
               </div>
@@ -462,8 +472,8 @@ export default function HomePage() {
                     <WalletIcon className="icon-sm" />
                   </span>
                   <div>
-                    <strong>No card to download</strong>
-                    <small>Install the APK and sign in</small>
+                    <strong>No credit card required</strong>
+                    <small>Install the APK and start right away</small>
                   </div>
                 </div>
               </div>
@@ -480,7 +490,7 @@ export default function HomePage() {
               <span className="brand-name">{site.name}</span>
             </a>
             <p>
-              Attendance, shifts and salary ledgers for small businesses that would rather run
+              Attendance, shifts, and salary ledgers for small businesses that would rather run
               their team than a spreadsheet.
             </p>
           </div>
@@ -488,8 +498,10 @@ export default function HomePage() {
           <nav className="footer-col" aria-label="Product">
             <h3>Product</h3>
             <a href="#features">Features</a>
-            <a href="#ledger">Salary ledger</a>
-            <a href="#how-it-works">How it works</a>
+            <a href="#demo">Live Demo</a>
+            <a href="#calculator">ROI Calculator</a>
+            <a href="#ledger">Salary Ledger</a>
+            <a href="#comparison">Why presence</a>
             <a href="#faq">FAQ</a>
           </nav>
 
