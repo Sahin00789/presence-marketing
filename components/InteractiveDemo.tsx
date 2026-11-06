@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   AlertTriangleIcon,
   BuildingIcon,
+  CalendarIcon,
   CheckIcon,
   ClockIcon,
   FaceIcon,
@@ -32,7 +33,7 @@ export function InteractiveDemo() {
         >
           <BuildingIcon className="icon-sm" />
           <span>Owner View</span>
-          <small>Multi-premises &amp; overrides</small>
+          <small>Premises oversight, shifts &amp; exception overrides</small>
         </button>
 
         <button
@@ -42,7 +43,7 @@ export function InteractiveDemo() {
         >
           <UserIcon className="icon-sm" />
           <span>Employee View</span>
-          <small>Face + GPS clock-in &amp; ledger</small>
+          <small>YuNet + SFace ONNX clock-in &amp; ledger</small>
         </button>
       </div>
 
@@ -51,12 +52,12 @@ export function InteractiveDemo() {
           <div className="demo-view owner-view">
             <div className="demo-header-bar">
               <div>
-                <span className="eyebrow eyebrow-sm">Owner Dashboard</span>
-                <h3>Organization Overview</h3>
+                <span className="eyebrow eyebrow-sm">Owner &amp; Admin Dashboard</span>
+                <h3>Organization &amp; Workforce Oversight</h3>
               </div>
               <div className="premises-selector">
                 <span className="selector-label">
-                  <BuildingIcon className="icon-xs" /> Filter Premises:
+                  <BuildingIcon className="icon-xs" /> Premises Filter:
                 </span>
                 <div className="premises-chips">
                   {premisesList.map((p) => (
@@ -73,6 +74,7 @@ export function InteractiveDemo() {
               </div>
             </div>
 
+            {/* LIVE EXCEPTION ALERT */}
             <div className="demo-alert-box">
               <div className="demo-alert-header">
                 <div className="demo-alert-title">
@@ -81,10 +83,10 @@ export function InteractiveDemo() {
                   </span>
                   <div>
                     <strong>Monitoring Exception Alert</strong>
-                    <small>Shift in progress · 3 consecutive pings outside 50 m geofence</small>
+                    <small>Shift in progress · 3 consecutive pings outside premises geofence</small>
                   </div>
                 </div>
-                <span className="pill pill-warning">Outside Pings &gt; 3</span>
+                <span className="pill pill-warning">Outside Count &gt; 3</span>
               </div>
 
               <div className="demo-alert-body">
@@ -92,13 +94,15 @@ export function InteractiveDemo() {
                   <span className="emp-avatar">RS</span>
                   <div>
                     <strong>Rohan Sharma</strong>
-                    <p>Morning Shift (09:00 – 18:00) · {selectedPremises === "All Premises" ? "Andheri Branch" : selectedPremises}</p>
-                    <small className="geo-ping">Last ping: 340 m outside premises geofence</small>
+                    <p>
+                      Morning Shift (09:00 – 18:00) · {selectedPremises === "All Premises" ? "Andheri Branch" : selectedPremises}
+                    </p>
+                    <small className="geo-ping">Last ping: 340 m outside 50 m geodesic geofence</small>
                   </div>
                 </div>
 
                 <div className="override-actions">
-                  <p className="actions-label">Owner Action (Active until shift completes):</p>
+                  <p className="actions-label">Owner Resolution Action (Active until shift completes):</p>
                   <div className="action-buttons">
                     <button
                       type="button"
@@ -112,7 +116,7 @@ export function InteractiveDemo() {
                       className={`btn-action btn-amber ${alertStatus === "HALF_DAY" ? "selected" : ""}`}
                       onClick={() => setAlertStatus("HALF_DAY")}
                     >
-                      Half Day
+                      Mark Half-Day
                     </button>
                     <button
                       type="button"
@@ -132,44 +136,47 @@ export function InteractiveDemo() {
 
                   {alertStatus !== "ALERT" && (
                     <div className="action-status-msg">
-                      <CheckIcon className="icon-xs" /> Status manually updated to: <strong>{alertStatus}</strong>
+                      <CheckIcon className="icon-xs" /> Attendance status updated to: <strong>{alertStatus}</strong>
                     </div>
                   )}
                   {alertStatus === "ALERT" && (
                     <p className="default-policy-note">
-                      * If no action is taken before shift completes, attendance automatically <strong>defaults to Present</strong>.
+                      * Default policy: If no action is taken before shift completes, attendance automatically <strong>defaults to Present</strong>.
                     </p>
                   )}
                 </div>
               </div>
             </div>
 
+            {/* OWNER METRICS & CONTROLS */}
             <div className="demo-stats-grid">
               <div className="demo-mini-card">
                 <span className="mini-card-icon icon-emerald">
                   <CheckIcon className="icon-sm" />
                 </span>
                 <div>
-                  <span className="mini-val">18 / 20</span>
-                  <span className="mini-lbl">Employees On Shift</span>
+                  <span className="mini-val">18 / 20 On Shift</span>
+                  <span className="mini-lbl">Live Geofence Verified</span>
                 </div>
               </div>
+
               <div className="demo-mini-card">
                 <span className="mini-card-icon icon-indigo">
-                  <ClockIcon className="icon-sm" />
+                  <CalendarIcon className="icon-sm" />
                 </span>
                 <div>
-                  <span className="mini-val">10 min</span>
-                  <span className="mini-lbl">GPS Ping Interval</span>
+                  <span className="mini-val">Weekday Rosters</span>
+                  <span className="mini-lbl">Custom Pay Rules &amp; Half-Day Thresholds</span>
                 </div>
               </div>
+
               <div className="demo-mini-card">
                 <span className="mini-card-icon icon-amber">
                   <LockIcon className="icon-sm" />
                 </span>
                 <div>
-                  <span className="mini-val">Monthly Payroll</span>
-                  <span className="mini-lbl">Locked by Owner</span>
+                  <span className="mini-val">Owner-Locked Payroll</span>
+                  <span className="mini-lbl">Disburse via UPI / Bank / Cash</span>
                 </div>
               </div>
             </div>
@@ -179,7 +186,7 @@ export function InteractiveDemo() {
             <div className="demo-header-bar">
               <div>
                 <span className="eyebrow eyebrow-sm">Employee Experience</span>
-                <h3>On-Device Clock-In &amp; Earning Ledger</h3>
+                <h3>On-Device Biometric Verification &amp; Salary Ledger</h3>
               </div>
               <span className="pill pill-present">
                 <ShieldIcon className="icon-xs" /> Single Active Device
@@ -187,58 +194,60 @@ export function InteractiveDemo() {
             </div>
 
             <div className="employee-demo-grid">
+              {/* CLOCK IN VERIFICATION CARD */}
               <div className="clock-sim-card">
                 <div className="sim-header">
                   <span className="sim-dot" />
-                  <strong>Clock-In Verification</strong>
+                  <strong>Clock-In Verification Pipeline</strong>
                 </div>
 
                 <div className="sim-checks">
                   <div className="check-item check-pass">
                     <FaceIcon className="icon-sm" />
                     <div>
-                      <strong>On-Device Face Verification</strong>
-                      <p>ONNX Mobile model match: 99.4% confidence score</p>
-                      <small>Camera frame discarded immediately · No cloud raw image upload</small>
+                      <strong>YuNet + SFace ONNX Engine</strong>
+                      <p>YuNet 5-landmark alignment → SFace 112x112 crop → 128-D vector</p>
+                      <small>Frame discarded immediately · No cloud raw photo storage</small>
                     </div>
                   </div>
 
                   <div className="check-item check-pass">
                     <MapPinIcon className="icon-sm" />
                     <div>
-                      <strong>Premises Geofence Verified</strong>
-                      <p>FusedLocation distance: 12 m (within 50 m radius)</p>
-                      <small>Andheri Branch · Geodesic distance verified</small>
+                      <strong>FusedLocation Geodesic Check</strong>
+                      <p>Distance: 12 m (inside 50 m premises geofence)</p>
+                      <small>Andheri Branch · Lat/Lng geofence radius verified</small>
                     </div>
                   </div>
 
                   <div className="check-item check-pass">
                     <SmartphoneIcon className="icon-sm" />
                     <div>
-                      <strong>Device Session Concurrency</strong>
-                      <p>Active device verified via SHA-256 hashed refresh token</p>
-                      <small>Prevents double sign-in or proxy clock-ins</small>
+                      <strong>Single Active Device Concurrency</strong>
+                      <p>Session token verified via SHA-256 hash in PostgreSQL</p>
+                      <small>Signing in elsewhere revokes previous device session</small>
                     </div>
                   </div>
                 </div>
 
                 <div className="sim-clocked-badge">
-                  <CheckIcon className="icon-sm" /> Clocked In at 09:02 AM
+                  <CheckIcon className="icon-sm" /> Clocked In at 09:02 AM · PRESENT
                 </div>
               </div>
 
+              {/* EARNING LEDGER CARD */}
               <div className="ledger-sim-card">
                 <div className="sim-header">
                   <WalletIcon className="icon-sm" />
-                  <strong>Append-Only Earning Ledger</strong>
+                  <strong>Append-Only Staff Earning Ledger</strong>
                 </div>
 
                 <div className="ledger-sim-list">
                   <div className="ledger-item">
                     <span className="l-dot l-present" />
                     <div className="l-info">
-                      <strong>Shift · Present</strong>
-                      <small>Mon, 4 Nov · 09:00 – 18:00</small>
+                      <strong>SHIFT · Present</strong>
+                      <small>Mon, 4 Nov · Morning Shift (09:00 – 18:00)</small>
                     </div>
                     <span className="l-amount">+₹800</span>
                   </div>
@@ -246,8 +255,8 @@ export function InteractiveDemo() {
                   <div className="ledger-item">
                     <span className="l-dot l-off" />
                     <div className="l-info">
-                      <strong>Weekly Off-Day</strong>
-                      <small>Sun, 3 Nov · Paid off-day rule</small>
+                      <strong>WEEKLY_OFF · Paid Off-Day</strong>
+                      <small>Sun, 3 Nov · Unworked Payment Rule</small>
                     </div>
                     <span className="l-amount">+₹400</span>
                   </div>
@@ -255,16 +264,16 @@ export function InteractiveDemo() {
                   <div className="ledger-item">
                     <span className="l-dot l-overtime" />
                     <div className="l-info">
-                      <strong>Approved Overtime</strong>
-                      <small>Sat, 2 Nov · 60 min worked</small>
+                      <strong>OVERTIME · 60 min Approved</strong>
+                      <small>Sat, 2 Nov · Booked by Owner</small>
                     </div>
                     <span className="l-amount">+₹250</span>
                   </div>
                 </div>
 
                 <div className="ledger-sim-total">
-                  <span>Net Ledger Balance</span>
-                  <strong>₹1,450 (Whole Rupees)</strong>
+                  <span>Net Ledger Earnings</span>
+                  <strong>₹1,450 (Whole Integer ₹)</strong>
                 </div>
               </div>
             </div>

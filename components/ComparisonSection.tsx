@@ -10,59 +10,59 @@ type ComparisonRow = {
 
 const comparisonData: ComparisonRow[] = [
   {
-    feature: "Zero Hardware Required",
+    feature: "Zero Hardware Expense",
     presence: true,
     paperRegister: true,
     hardwareMachine: false,
     genericHr: false,
   },
   {
-    feature: "50m Geofence Verification",
+    feature: "50m Geofence Radius Check",
     presence: true,
     paperRegister: false,
     hardwareMachine: false,
-    genericHr: "Add-on fee",
+    genericHr: "Paid add-on",
   },
   {
-    feature: "On-Device Face Matching (ONNX)",
+    feature: "YuNet + SFace ONNX Face Match",
     presence: true,
     paperRegister: false,
     hardwareMachine: "Uploads raw photo",
-    genericHr: "Cloud only",
+    genericHr: "Cloud processing",
   },
   {
-    feature: "Live Shift GPS Check (~10 min)",
+    feature: "Periodic Shift GPS Pings (~10 min)",
     presence: true,
     paperRegister: false,
     hardwareMachine: false,
     genericHr: false,
   },
   {
-    feature: "Single Active Device Enforcement",
+    feature: "Single Active Device Concurrency",
     presence: true,
     paperRegister: false,
     hardwareMachine: false,
     genericHr: false,
   },
   {
-    feature: "Append-Only Whole ₹ Ledger",
+    feature: "Append-Only Whole Integer ₹ Ledger",
     presence: true,
     paperRegister: false,
     hardwareMachine: false,
     genericHr: false,
   },
   {
-    feature: "Owner-Locked Payroll Engine",
+    feature: "Owner-Locked Monthly Payroll",
     presence: true,
     paperRegister: false,
     hardwareMachine: false,
     genericHr: true,
   },
   {
-    feature: "Offline Clock-in Support",
+    feature: "Offline Queueing via Room DB",
     presence: true,
     paperRegister: true,
-    hardwareMachine: "Limited",
+    hardwareMachine: "Limited storage",
     genericHr: false,
   },
 ];
@@ -98,7 +98,7 @@ export function ComparisonSection() {
               </th>
               <th>Paper Register</th>
               <th>Biometric Machine</th>
-              <th>Legacy HR SaaS</th>
+              <th>Generic HR SaaS</th>
             </tr>
           </thead>
           <tbody>

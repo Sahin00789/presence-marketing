@@ -1,4 +1,4 @@
-import { FaceIcon, MapPinIcon, WalletIcon, CalendarIcon, ChartIcon, CheckIcon } from "./Icons";
+import { CalendarIcon, ChartIcon, CheckIcon, FaceIcon, MapPinIcon, WalletIcon } from "./Icons";
 
 const week = [
   { day: "M", height: 62, tone: "present" },
@@ -16,7 +16,11 @@ export function PhoneMockup() {
       <div className="glow glow-indigo" aria-hidden="true" />
       <div className="glow glow-emerald" aria-hidden="true" />
 
-      <div className="phone" role="img" aria-label="presence app dashboard showing a face and GPS verified clock-in, today's shift, weekly attendance and this month's earnings">
+      <div
+        className="phone"
+        role="img"
+        aria-label="presence Android app screen showing YuNet and SFace ONNX face match, FusedLocation 50m geofence, weekday shift roster, and integer rupee salary ledger"
+      >
         <div className="phone-notch" aria-hidden="true" />
         <div className="phone-screen">
           <div className="phone-status" aria-hidden="true">
@@ -31,7 +35,7 @@ export function PhoneMockup() {
           <div className="app-head">
             <div>
               <p className="app-hello">Good morning, Aisha</p>
-              <p className="app-sub">Mon, 5 Nov · Andheri branch</p>
+              <p className="app-sub">Mon, 4 Nov · Andheri Branch (50m Geofence)</p>
             </div>
             <span className="app-avatar">A</span>
           </div>
@@ -39,17 +43,17 @@ export function PhoneMockup() {
           <div className="app-card app-clock">
             <div className="app-clock-top">
               <span className="pill pill-present">
-                <CheckIcon className="icon-xs" /> Present
+                <CheckIcon className="icon-xs" /> Clocked In · PRESENT
               </span>
-              <span className="app-clock-time">09:02</span>
+              <span className="app-clock-time">09:02 AM</span>
             </div>
-            <p className="app-clock-label">Clocked in</p>
+            <p className="app-clock-label">Face + GPS Verified</p>
             <div className="app-verify">
               <span className="verify-chip">
-                <FaceIcon className="icon-xs" /> Face 99.2%
+                <FaceIcon className="icon-xs" /> YuNet + SFace (128-D)
               </span>
               <span className="verify-chip">
-                <MapPinIcon className="icon-xs" /> GPS 12 m
+                <MapPinIcon className="icon-xs" /> FusedLocation 12 m
               </span>
             </div>
           </div>
@@ -60,17 +64,17 @@ export function PhoneMockup() {
                 <CalendarIcon className="icon-sm" />
               </span>
               <div>
-                <p className="app-row-title">Morning shift</p>
-                <p className="app-row-sub">09:00 – 18:00 · ₹800 present</p>
+                <p className="app-row-title">Morning Shift (Mon)</p>
+                <p className="app-row-sub">09:00 – 18:00 · ₹800 present / ₹400 half-day</p>
               </div>
             </div>
-            <span className="pill pill-soft">On shift</span>
+            <span className="pill pill-soft">Active</span>
           </div>
 
           <div className="app-card app-week">
             <div className="app-week-head">
-              <p className="app-row-title">This week</p>
-              <span className="app-week-badge">5 present</span>
+              <p className="app-row-title">Weekly Attendance</p>
+              <span className="app-week-badge">5 Present · 1 Half-Day</span>
             </div>
             <div className="bars">
               {week.map((item, index) => (
@@ -87,10 +91,10 @@ export function PhoneMockup() {
               <WalletIcon className="icon-sm" />
             </span>
             <div>
-              <p className="app-row-sub">Earned this month</p>
+              <p className="app-row-sub">Append-Only Salary Ledger</p>
               <p className="app-earn-value">₹12,400</p>
             </div>
-            <span className="app-earn-cta">Ledger ›</span>
+            <span className="app-earn-cta">Payslip ›</span>
           </div>
 
           <div className="app-tabs" aria-hidden="true">
@@ -101,7 +105,7 @@ export function PhoneMockup() {
               <CalendarIcon className="icon-sm" /> Shifts
             </span>
             <span className="app-tab">
-              <WalletIcon className="icon-sm" /> Earnings
+              <WalletIcon className="icon-sm" /> Ledger
             </span>
           </div>
         </div>
@@ -112,8 +116,8 @@ export function PhoneMockup() {
           <MapPinIcon className="icon-sm" />
         </span>
         <div>
-          <strong>Inside geofence</strong>
-          <small>12 m from premises · 50 m radius</small>
+          <strong>Inside 50 m Geofence</strong>
+          <small>FusedLocation · Geodesic calculation</small>
         </div>
       </div>
 
@@ -122,8 +126,8 @@ export function PhoneMockup() {
           <FaceIcon className="icon-sm" />
         </span>
         <div>
-          <strong>Face verified on device</strong>
-          <small>Only embeddings leave the phone</small>
+          <strong>YuNet + SFace ONNX Engine</strong>
+          <small>128-D embedding · Raw frame discarded</small>
         </div>
       </div>
     </div>

@@ -13,43 +13,43 @@ type FaqItem = {
 const faqItems: FaqItem[] = [
   {
     category: "Setup & Devices",
-    q: "How do employees get the app?",
-    a: "Download the APK directly from this website or GitHub Releases and install it on any Android 8.0+ smartphone. The owner adds each employee to a premises first; employees then sign in using Email 6-Digit OTP or Google OAuth.",
+    q: "How do employees sign in and get added to the organization?",
+    a: "The Owner registers the organization and directly adds employees to assigned premises. Employees can then sign in using Email 6-Digit OTP or Google OAuth 2.0. Unregistered employees cannot self-register.",
   },
   {
     category: "Attendance & GPS",
-    q: "Does the app work without internet?",
-    a: "Yes! On-device face verification runs locally using ONNX Runtime Mobile, allowing clock-ins to be captured offline. Attendance and ledger records are queued locally in Room database and automatically uploaded when connectivity returns.",
+    q: "How does face verification work, and does it work offline?",
+    a: "face verification runs entirely on-device using ONNX Runtime Mobile with YuNet (face detector with 5 landmark alignment) and SFace (recognizer generating a 128-D embedding vector). It works offline, storing clock-ins inRoom database and syncing when connectivity returns.",
   },
   {
     category: "Security & Privacy",
-    q: "Are employee photos or camera frames stored?",
-    a: "No. CameraX captures the camera frame solely to extract a 128-dimensional numerical embedding on-device. The raw image frame is instantly discarded and never stored or transmitted to any backend server.",
+    q: "Are employee photos stored on any server?",
+    a: "No. CameraX captures the camera frame solely to extract a 128-dimensional numerical embedding vector on-device. The raw image frame is discarded immediately and never stored or uploaded to any server.",
   },
   {
     category: "Attendance & GPS",
     q: "What happens if an employee leaves the premises mid-shift?",
-    a: "While a shift is active, the app performs a live location check roughly every 10 minutes. If 3 consecutive outside readings occur, an exception alert is sent to the Owner dashboard. The owner can manually mark attendance as Absent, Half-Day, Leave, or Resume tracking. If no action is taken before shift end, attendance defaults to Present.",
+    a: "While a shift is active, presence performs periodic GPS checks roughly every 10 minutes. If 3 consecutive pings occur outside the premises 50m geofence, an exception alert appears on the Owner Dashboard. The owner can mark the shift as Absent, Half-Day, Leave, or Resume tracking. If no action is taken before shift completion, attendance defaults to Present.",
   },
   {
     category: "Payroll & Ledger",
-    q: "How is salary calculated and stored?",
-    a: "The backend is authoritative. Shift earnings, holiday pay, off-day rules, and approved overtime write directly to an append-only staff earning ledger in exact whole Indian Rupees (₹). There are no floating-point rounding errors. At month-end, the owner locks payroll for final payslips.",
+    q: "How are earnings calculated and stored?",
+    a: "The backend server is authoritative. Shift earnings, holiday pay, off-day rules, and approved overtime write to an append-only staff earning ledger in exact whole Indian Rupees (₹) with zero floating-point drift. At month-end, the owner locks payroll for final payslips and records transactions (UPI, Bank Transfer, Cash).",
   },
   {
     category: "Security & Privacy",
     q: "Can an employee sign in on two phones at once?",
-    a: "No. For all roles, presence enforces a strict single-device concurrency rule. Rotating refresh tokens are SHA-256 hashed in PostgreSQL. Signing in on a new device immediately revokes all previous active sessions.",
+    a: "No. presence enforces a strict single-device concurrency rule for all roles (Owner & Employee). Refresh tokens are SHA-256 hashed in PostgreSQL logged_devices table. Signing in on a new device immediately revokes all prior active device sessions.",
   },
   {
     category: "Payroll & Ledger",
-    q: "Who can lock monthly payroll?",
-    a: "Only the Organization Owner can lock monthly payroll. Owners are high-level administrators (stored via organization owner user ID) and maintain exclusive rights over payroll locking, financial approvals, and premises creation.",
+    q: "Who can lock monthly payroll and create premises?",
+    a: "Only the Organization Owner holds organization-level administrative rights to add premises, configure shift pay rates, lock monthly payroll, and approve financial ledger adjustments. Owners are stored separately from the employee table.",
   },
   {
     category: "Setup & Devices",
-    q: "Do I need to buy expensive biometric fingerprint or face scanners?",
-    a: "Not at all! presence runs on standard Android phones. Every employee or supervisor uses their existing phone camera and GPS, saving tens of thousands of rupees on dedicated hardware.",
+    q: "Do I need to buy fingerprint scanners or face machines?",
+    a: "No extra hardware is needed. presence uses standard Android 8.0+ smartphones with CameraX and GPS, saving tens of thousands of rupees on dedicated hardware devices.",
   },
 ];
 
@@ -149,8 +149,8 @@ export function FaqSection() {
 
       <div className="faq-footer-note">
         <p>
-          Have more questions? Contact us at{" "}
-          <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> and we&apos;ll answer within 24 hours.
+          Have questions? Contact us at{" "}
+          <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> and we&apos;ll help you set up your team.
         </p>
       </div>
     </div>

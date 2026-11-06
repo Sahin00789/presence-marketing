@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 const stats = [
   { value: "50 m", label: "Default premises geofence radius" },
-  { value: "~10 min", label: "Live location checks on shift" },
+  { value: "~10 min", label: "Live location pings on shift" },
   { value: ">3", label: "Outside pings before owner alert" },
   { value: "100%", label: "Integer-rupee salary ledger (₹)" },
 ];
@@ -38,62 +38,62 @@ const stats = [
 const features = [
   {
     icon: FaceIcon,
-    title: "Face + GPS clock-in",
-    body: "Employees clock in only when they are inside the premises geofence and their face matches on-device via ONNX Runtime. No buddy punching, no shared PINs.",
+    title: "YuNet + SFace ONNX Clock-In",
+    body: "Employees clock in inside the 50m geofence. YuNet 5-landmark alignment and SFace produce a 128-D embedding on-device. Raw frames are discarded immediately.",
     tone: "indigo",
   },
   {
     icon: MapPinIcon,
-    title: "Live geofence monitoring",
-    body: "Active shifts receive periodic location pings roughly every 10 minutes. Three consecutive outside readings raise an alert and notify the owner.",
+    title: "Live Shift Geofence Monitoring",
+    body: "Active shifts receive location checks roughly every 10 minutes. Three consecutive outside pings trigger an exception alert on the Owner Dashboard.",
     tone: "emerald",
   },
   {
     icon: CalendarIcon,
-    title: "Shift rosters that fit",
-    body: "Define weekday shifts with start and end times, half-day thresholds and per-day pay rates, then assign them per employee and premises.",
+    title: "Weekday Rosters & Shift Rules",
+    body: "Define weekday shifts with start/end times, half-day threshold minutes, and per-day pay rates (Present, Absent, Leave, Half-Day) per employee and premises.",
     tone: "amber",
   },
   {
     icon: WalletIcon,
-    title: "Append-only salary ledger",
-    body: "Every present day, holiday, off-day and overtime entry is written to an earning ledger in whole Indian Rupees (₹) that links back to its source record.",
+    title: "Append-Only Salary Ledger",
+    body: "Every present day, holiday, off-day and overtime entry is recorded in whole Indian Rupees (₹) in an append-only ledger linking directly to source records.",
     tone: "indigo",
   },
   {
     icon: ChartIcon,
-    title: "Monthly payroll, locked",
-    body: "The owner reviews the month and locks payroll with one tap. Employees get an itemised payslip they can check against their own ledger.",
+    title: "Owner-Locked Payroll Engine",
+    body: "The owner reviews month-end earnings, locks monthly payroll, and records salary disbursements via Bank Transfer, UPI, or Cash with itemized payslips.",
     tone: "emerald",
   },
   {
     icon: BellIcon,
-    title: "One dashboard, all premises",
-    body: "See who is on shift across every branch. Override attendance as absent, half-day or leave until the shift or overtime is complete.",
+    title: "One Dashboard, All Premises",
+    body: "Filter rosters and attendance by premises. Manually mark shifts as Absent, Half-Day, Leave, or Resume tracking until the shift or overtime finishes.",
     tone: "amber",
   },
 ] as const;
 
 const ledgerRows = [
-  { label: "Shift · Present", detail: "Mon, 4 Nov · 09:00 – 18:00", amount: "+₹800", tone: "present" },
-  { label: "Weekly off", detail: "Sun, 3 Nov · paid off-day rule", amount: "+₹400", tone: "off" },
-  { label: "Overtime", detail: "Sat, 2 Nov · 60 min approved", amount: "+₹250", tone: "overtime" },
+  { label: "SHIFT · Present", detail: "Mon, 4 Nov · Morning Shift (09:00 – 18:00)", amount: "+₹800", tone: "present" },
+  { label: "WEEKLY_OFF · Paid Off-Day", detail: "Sun, 3 Nov · Unworked Payment Rule", amount: "+₹400", tone: "off" },
+  { label: "OVERTIME · 60 min Approved", detail: "Sat, 2 Nov · Booked by Owner", amount: "+₹250", tone: "overtime" },
 ];
 
 const steps = [
   {
-    title: "Set up the organisation",
-    body: "Register with Email 6-Digit OTP or Google OAuth, create the organisation and add each premises with its address and 50 m geofence.",
+    title: "Register & Set Up Premises",
+    body: "Sign in with Email OTP or Google OAuth, create your organization, and configure premises with address & 50m geofence radius.",
     icon: ShieldIcon,
   },
   {
-    title: "Add people and rosters",
-    body: "Add employees to a premises, enrol their face once on-device, then assign weekday shifts and present/leave/off-day pay rates.",
+    title: "Add Staff & Assign Shifts",
+    body: "Add employees to premises, enrol their face ONNX template on-device, and assign weekday shifts with custom pay rules.",
     icon: FaceIcon,
   },
   {
-    title: "Run the month",
-    body: "The team clocks in with face + GPS. You resolve exceptions live, review the ledger, and lock monthly payroll.",
+    title: "Run Shift & Lock Payroll",
+    body: "Staff clock in with face + GPS. Resolve exception alerts live on the dashboard, review the append-only ledger, and lock monthly payroll.",
     icon: WalletIcon,
   },
 ];
@@ -137,7 +137,7 @@ export default function HomePage() {
             <div className="hero-copy">
               <p className="eyebrow">
                 <span className="eyebrow-dot" aria-hidden="true" />
-                Face + GPS verified attendance
+                On-Device Face + GPS Geofenced Attendance
               </p>
               <h1>
                 Attendance that runs itself.
@@ -145,7 +145,7 @@ export default function HomePage() {
               </h1>
               <p className="hero-lede">
                 {site.name} replaces paper registers and expensive hardware with geofenced clock-ins,
-                on-device face verification, weekday shift rosters, and an append-only salary ledger.
+                YuNet + SFace ONNX face verification, weekday shift rosters, and an append-only whole-rupee salary ledger.
               </p>
 
               <DownloadButtons />
@@ -155,7 +155,7 @@ export default function HomePage() {
                   <CheckIcon className="icon-xs" /> Zero biometric hardware
                 </li>
                 <li>
-                  <CheckIcon className="icon-xs" /> Offline clock-in support
+                  <CheckIcon className="icon-xs" /> Offline Room DB queueing
                 </li>
                 <li>
                   <CheckIcon className="icon-xs" /> Single active device rule
@@ -185,7 +185,7 @@ export default function HomePage() {
               <p className="eyebrow">Live App Simulator</p>
               <h2>Experience presence in action</h2>
               <p className="lede">
-                Explore how owners oversee premises and resolve alerts, while employees clock in securely with face + GPS verification.
+                Explore how owners manage premises and resolve alerts live, while employees clock in securely with YuNet + SFace face verification.
               </p>
             </div>
 
@@ -200,7 +200,7 @@ export default function HomePage() {
               <p className="eyebrow">Everything in one app</p>
               <h2>Built for the way small teams actually work</h2>
               <p className="lede">
-                One place for owners, managers, and staff. No spreadsheets to reconcile, no separate hardware, no month-end guessing.
+                One app for owners and staff. No spreadsheets to reconcile, no biometric hardware machines, no month-end payroll guessing.
               </p>
             </div>
 
@@ -240,7 +240,7 @@ export default function HomePage() {
               <h2>Every rupee, traceable to a shift</h2>
               <p className="lede">
                 Attendance writes earnings, never the other way around. Each entry points back to
-                the shift, holiday, off-day or overtime that created it — in whole rupees, with zero floating-point drift.
+                the shift, holiday, off-day or overtime that created it — in whole Indian Rupees (₹), with zero floating-point drift.
               </p>
 
               <ul className="check-list">
@@ -250,7 +250,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <strong>Append-only by design</strong>
-                    <p>Corrections are new entries, so history is never silently rewritten.</p>
+                    <p>Corrections are new ledger entries, so historical records are never silently overwritten.</p>
                   </div>
                 </li>
                 <li>
@@ -259,7 +259,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <strong>Owner-locked payroll</strong>
-                    <p>Monthly payroll is reviewed and locked by the owner before payslips go out.</p>
+                    <p>Monthly payroll is locked by the owner before itemized payslips are generated.</p>
                   </div>
                 </li>
                 <li>
@@ -268,7 +268,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <strong>Transparent for employees</strong>
-                    <p>Employees see the exact same ledger the payroll engine uses — no surprises.</p>
+                    <p>Employees see the exact same ledger entries the backend payroll engine computes.</p>
                   </div>
                 </li>
               </ul>
@@ -302,7 +302,7 @@ export default function HomePage() {
                   <strong>₹1,450</strong>
                 </div>
                 <p className="ledger-note">
-                  <LockIcon className="icon-xs" /> Whole rupees only. Source records attached.
+                  <LockIcon className="icon-xs" /> Whole integer rupees only. Source attendance records attached.
                 </p>
               </div>
             </div>
@@ -398,18 +398,18 @@ export default function HomePage() {
             <div className="security-grid-inner">
               <div className="security-item">
                 <FaceIcon className="icon" />
-                <h3>On-device face match</h3>
-                <p>CameraX feeds a local ONNX model. The camera frame is discarded; only a 128-d numerical embedding is stored.</p>
+                <h3>On-device YuNet + SFace ONNX model</h3>
+                <p>CameraX feeds a local ONNX model. 5-landmark face alignment produces a 128-d vector; raw frames are discarded instantly.</p>
               </div>
               <div className="security-item">
                 <MapPinIcon className="icon" />
                 <h3>Geofence, not tracking</h3>
-                <p>Location is verified at clock-in and during ~10-minute shift checks within a 50m radius.</p>
+                <p>Location is verified at clock-in and during ~10-minute shift pings within a 50m geodesic radius.</p>
               </div>
               <div className="security-item">
                 <LockIcon className="icon" />
                 <h3>Single-device sessions</h3>
-                <p>Rotating refresh tokens are SHA-256 hashed in PostgreSQL. Signing in elsewhere revokes old device sessions.</p>
+                <p>Rotating refresh tokens are SHA-256 hashed in PostgreSQL logged_devices. Signing in elsewhere revokes old device sessions.</p>
               </div>
             </div>
           </div>
@@ -464,7 +464,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <strong>Your data stays yours</strong>
-                    <small>Multi-tenant, organisation-scoped access</small>
+                    <small>Multi-tenant, organization-scoped access</small>
                   </div>
                 </div>
                 <div className="cta-meta-row">
