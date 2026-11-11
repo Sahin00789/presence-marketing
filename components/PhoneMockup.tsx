@@ -1,14 +1,13 @@
-import { CalendarIcon, ChartIcon, CheckIcon, FaceIcon, MapPinIcon, WalletIcon } from "./Icons";
+import {
+  CalendarIcon,
+  CheckIcon,
+  ClockIcon,
+  FaceIcon,
+  MapPinIcon,
+  WalletIcon,
+} from "./Icons";
 
-const week = [
-  { day: "M", height: 62, tone: "present" },
-  { day: "T", height: 78, tone: "present" },
-  { day: "W", height: 48, tone: "present" },
-  { day: "T", height: 88, tone: "present" },
-  { day: "F", height: 70, tone: "present" },
-  { day: "S", height: 34, tone: "half" },
-  { day: "S", height: 12, tone: "off" },
-];
+const gpsChecks = ["09:12", "09:22", "09:32"];
 
 export function PhoneMockup() {
   return (
@@ -19,7 +18,7 @@ export function PhoneMockup() {
       <div
         className="phone"
         role="img"
-        aria-label="presence Android app screen showing YuNet and SFace ONNX face match, FusedLocation 50m geofence, weekday shift roster, and integer rupee salary ledger"
+        aria-label="presence Android Clock In tab showing YuNet and SFace ONNX face match, FusedLocation 50m geofence, today's shift and GPS monitoring checks"
       >
         <div className="phone-notch" aria-hidden="true" />
         <div className="phone-screen">
@@ -71,18 +70,19 @@ export function PhoneMockup() {
             <span className="pill pill-soft">Active</span>
           </div>
 
-          <div className="app-card app-week">
+          <div className="app-card app-gps">
             <div className="app-week-head">
-              <p className="app-row-title">Weekly Attendance</p>
-              <span className="app-week-badge">5 Present · 1 Half-Day</span>
+              <p className="app-row-title">GPS Monitoring Checks</p>
+              <span className="app-week-badge">3 inside</span>
             </div>
-            <div className="bars">
-              {week.map((item, index) => (
-                <div className="bar-col" key={`${item.day}-${index}`}>
-                  <span className={`bar bar-${item.tone}`} style={{ height: `${item.height}%` }} />
-                  <span className="bar-day">{item.day}</span>
-                </div>
+            <div className="app-gps-track">
+              {gpsChecks.map((time) => (
+                <span className="app-gps-ping" key={time}>
+                  <span className="app-gps-dot" aria-hidden="true" />
+                  {time}
+                </span>
               ))}
+              <span className="app-gps-next">next ~10 min</span>
             </div>
           </div>
 
@@ -91,18 +91,18 @@ export function PhoneMockup() {
               <WalletIcon className="icon-sm" />
             </span>
             <div>
-              <p className="app-row-sub">Append-Only Salary Ledger</p>
-              <p className="app-earn-value">₹12,400</p>
+              <p className="app-row-sub">Today&apos;s earning rate</p>
+              <p className="app-earn-value">₹800</p>
             </div>
-            <span className="app-earn-cta">Payslip ›</span>
+            <span className="app-earn-cta">Ledger ›</span>
           </div>
 
           <div className="app-tabs" aria-hidden="true">
             <span className="app-tab app-tab-active">
-              <ChartIcon className="icon-sm" /> Home
+              <ClockIcon className="icon-sm" /> Clock In
             </span>
             <span className="app-tab">
-              <CalendarIcon className="icon-sm" /> Shifts
+              <CalendarIcon className="icon-sm" /> Attendance
             </span>
             <span className="app-tab">
               <WalletIcon className="icon-sm" /> Ledger

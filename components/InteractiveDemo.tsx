@@ -33,7 +33,7 @@ export function InteractiveDemo() {
         >
           <BuildingIcon className="icon-sm" />
           <span>Owner View</span>
-          <small>Premises oversight, shifts &amp; exception overrides</small>
+          <small>Live Monitor tab: geofence pings &amp; exception overrides</small>
         </button>
 
         <button
@@ -43,7 +43,7 @@ export function InteractiveDemo() {
         >
           <UserIcon className="icon-sm" />
           <span>Employee View</span>
-          <small>YuNet + SFace ONNX clock-in &amp; ledger</small>
+          <small>Clock In tab: YuNet + SFace ONNX clock-in &amp; ledger</small>
         </button>
       </div>
 
@@ -52,8 +52,8 @@ export function InteractiveDemo() {
           <div className="demo-view owner-view">
             <div className="demo-header-bar">
               <div>
-                <span className="eyebrow eyebrow-sm">Owner &amp; Admin Dashboard</span>
-                <h3>Organization &amp; Workforce Oversight</h3>
+                <span className="eyebrow eyebrow-sm">Owner · Live Monitor tab</span>
+                <h3>Live geofence monitoring &amp; exception resolution</h3>
               </div>
               <div className="premises-selector">
                 <span className="selector-label">
@@ -185,8 +185,8 @@ export function InteractiveDemo() {
           <div className="demo-view employee-view">
             <div className="demo-header-bar">
               <div>
-                <span className="eyebrow eyebrow-sm">Employee Experience</span>
-                <h3>On-Device Biometric Verification &amp; Salary Ledger</h3>
+                <span className="eyebrow eyebrow-sm">Employee · Clock In tab</span>
+                <h3>On-device biometric verification &amp; salary ledger</h3>
               </div>
               <span className="pill pill-present">
                 <ShieldIcon className="icon-xs" /> Single Active Device
@@ -240,6 +240,7 @@ export function InteractiveDemo() {
                 <div className="sim-header">
                   <WalletIcon className="icon-sm" />
                   <strong>Append-Only Staff Earning Ledger</strong>
+                  <span className="pill pill-soft">Ledger tab</span>
                 </div>
 
                 <div className="ledger-sim-list">

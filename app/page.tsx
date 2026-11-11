@@ -148,7 +148,7 @@ export default function HomePage() {
                 YuNet + SFace ONNX face verification, weekday shift rosters, and an append-only whole-rupee salary ledger.
               </p>
 
-              <DownloadButtons />
+              <DownloadButtons howItWorks />
 
               <ul className="hero-points">
                 <li>
@@ -512,7 +512,9 @@ export default function HomePage() {
           </nav>
 
           <div className="footer-col">
-            <h3>Contact</h3>
+            <h3>Legal & Contact</h3>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
             <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
             <a href={`mailto:${site.contactEmail}?subject=Advertising%20on%20presence`}>
               Advertise with us

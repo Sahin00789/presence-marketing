@@ -88,6 +88,7 @@ function RenderCell({ value }: { value: boolean | string }) {
 export function ComparisonSection() {
   return (
     <div className="comparison-card-wrap">
+      <p className="table-scroll-hint">Swipe the table sideways to compare →</p>
       <div className="table-responsive">
         <table className="comparison-table">
           <thead>
