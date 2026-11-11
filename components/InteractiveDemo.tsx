@@ -6,7 +6,6 @@ import {
   BuildingIcon,
   CalendarIcon,
   CheckIcon,
-  ClockIcon,
   FaceIcon,
   LockIcon,
   MapPinIcon,
@@ -14,14 +13,16 @@ import {
   SmartphoneIcon,
   UserIcon,
   WalletIcon,
+  XIcon,
 } from "./Icons";
+
+type ExceptionStatus = "ALERT" | "ABSENT" | "HALF_DAY" | "RESUME";
+type LeaveStatus = "PENDING" | "APPROVED" | "REJECTED";
 
 export function InteractiveDemo() {
   const [activeTab, setActiveTab] = useState<"owner" | "employee">("owner");
-  const [selectedPremises, setSelectedPremises] = useState("All Premises");
-  const [alertStatus, setAlertStatus] = useState<"ALERT" | "ABSENT" | "HALF_DAY" | "LEAVE" | "RESUME">("ALERT");
-
-  const premisesList = ["All Premises", "Andheri Branch", "Bandra Store", "Powai Hub"];
+  const [exceptionStatus, setExceptionStatus] = useState<ExceptionStatus>("ALERT");
+  const [leaveStatus, setLeaveStatus] = useState<LeaveStatus>("PENDING");
 
   return (
     <div className="demo-card-container">
@@ -33,7 +34,7 @@ export function InteractiveDemo() {
         >
           <BuildingIcon className="icon-sm" />
           <span>Owner View</span>
-          <small>Live Monitor tab: geofence pings &amp; exception overrides</small>
+          <small>Live Monitor tab: exceptions &amp; leave approvals</small>
         </button>
 
         <button
@@ -43,7 +44,7 @@ export function InteractiveDemo() {
         >
           <UserIcon className="icon-sm" />
           <span>Employee View</span>
-          <small>Clock In tab: YuNet + SFace ONNX clock-in &amp; ledger</small>
+          <small>Clock In tab: face + GPS clock-in &amp; leave request</small>
         </button>
       </div>
 
@@ -55,23 +56,9 @@ export function InteractiveDemo() {
                 <span className="eyebrow eyebrow-sm">Owner · Live Monitor tab</span>
                 <h3>Live geofence monitoring &amp; exception resolution</h3>
               </div>
-              <div className="premises-selector">
-                <span className="selector-label">
-                  <BuildingIcon className="icon-xs" /> Premises Filter:
-                </span>
-                <div className="premises-chips">
-                  {premisesList.map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      className={`chip ${selectedPremises === p ? "chip-active" : ""}`}
-                      onClick={() => setSelectedPremises(p)}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <span className="pill pill-soft">
+                <BuildingIcon className="icon-xs" /> Andheri Branch · 50 m geofence
+              </span>
             </div>
 
             {/* LIVE EXCEPTION ALERT */}
@@ -83,7 +70,7 @@ export function InteractiveDemo() {
                   </span>
                   <div>
                     <strong>Monitoring Exception Alert</strong>
-                    <small>Shift in progress · 3 consecutive pings outside premises geofence</small>
+                    <small>Shift in progress · 3 consecutive pings outside the premises geofence</small>
                   </div>
                 </div>
                 <span className="pill pill-warning">Outside Count &gt; 3</span>
@@ -94,54 +81,128 @@ export function InteractiveDemo() {
                   <span className="emp-avatar">RS</span>
                   <div>
                     <strong>Rohan Sharma</strong>
-                    <p>
-                      Morning Shift (09:00 – 18:00) · {selectedPremises === "All Premises" ? "Andheri Branch" : selectedPremises}
-                    </p>
-                    <small className="geo-ping">Last ping: 340 m outside 50 m geodesic geofence</small>
+                    <p>Morning Shift (09:00 – 18:00) · Andheri Branch</p>
+                    <small className="geo-ping">Last ping: 340 m outside the 50 m geodesic geofence</small>
                   </div>
                 </div>
 
                 <div className="override-actions">
-                  <p className="actions-label">Owner Resolution Action (Active until shift completes):</p>
+                  <p className="actions-label">Owner Resolution Action (active until shift completes):</p>
                   <div className="action-buttons">
                     <button
                       type="button"
-                      className={`btn-action btn-danger ${alertStatus === "ABSENT" ? "selected" : ""}`}
-                      onClick={() => setAlertStatus("ABSENT")}
+                      className={`btn-action btn-danger ${exceptionStatus === "ABSENT" ? "selected" : ""}`}
+                      onClick={() => setExceptionStatus("ABSENT")}
                     >
                       Mark Absent
                     </button>
                     <button
                       type="button"
-                      className={`btn-action btn-amber ${alertStatus === "HALF_DAY" ? "selected" : ""}`}
-                      onClick={() => setAlertStatus("HALF_DAY")}
+                      className={`btn-action btn-amber ${exceptionStatus === "HALF_DAY" ? "selected" : ""}`}
+                      onClick={() => setExceptionStatus("HALF_DAY")}
                     >
                       Mark Half-Day
                     </button>
                     <button
                       type="button"
-                      className={`btn-action btn-blue ${alertStatus === "LEAVE" ? "selected" : ""}`}
-                      onClick={() => setAlertStatus("LEAVE")}
-                    >
-                      Mark Leave
-                    </button>
-                    <button
-                      type="button"
-                      className={`btn-action btn-green ${alertStatus === "RESUME" ? "selected" : ""}`}
-                      onClick={() => setAlertStatus("RESUME")}
+                      className={`btn-action btn-green ${exceptionStatus === "RESUME" ? "selected" : ""}`}
+                      onClick={() => setExceptionStatus("RESUME")}
                     >
                       Resume Tracking
                     </button>
                   </div>
 
-                  {alertStatus !== "ALERT" && (
+                  {exceptionStatus !== "ALERT" && (
                     <div className="action-status-msg">
-                      <CheckIcon className="icon-xs" /> Attendance status updated to: <strong>{alertStatus}</strong>
+                      <CheckIcon className="icon-xs" />
+                      {exceptionStatus === "ABSENT" && (
+                        <>Attendance marked <strong>Absent</strong>.</>
+                      )}
+                      {exceptionStatus === "HALF_DAY" && (
+                        <>Attendance marked <strong>Half-Day</strong>.</>
+                      )}
+                      {exceptionStatus === "RESUME" && (
+                        <>Tracking resumed · live pings continue until the shift ends.</>
+                      )}
                     </div>
                   )}
-                  {alertStatus === "ALERT" && (
+                  {exceptionStatus === "ALERT" && (
                     <p className="default-policy-note">
-                      * Default policy: If no action is taken before shift completes, attendance automatically <strong>defaults to Present</strong>.
+                      * If no action is taken before the shift completes, attendance automatically{" "}
+                      <strong>defaults to Present</strong>.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* LEAVE REQUEST APPROVAL */}
+            <div className="demo-leave-box">
+              <div className="demo-alert-header">
+                <div className="demo-alert-title">
+                  <span className="alert-icon-wrap leave-icon-wrap">
+                    <CalendarIcon className="icon-sm" />
+                  </span>
+                  <div>
+                    <strong>Leave Request · Owner Approval</strong>
+                    <small>Raised by the employee against an assigned shift</small>
+                  </div>
+                </div>
+                <span
+                  className={`pill ${
+                    leaveStatus === "PENDING"
+                      ? "pill-warning"
+                      : leaveStatus === "APPROVED"
+                        ? "pill-present"
+                        : "pill-soft"
+                  }`}
+                >
+                  {leaveStatus}
+                </span>
+              </div>
+
+              <div className="demo-alert-body">
+                <div className="employee-info">
+                  <span className="emp-avatar emp-avatar-emerald">AK</span>
+                  <div>
+                    <strong>Aisha Khan</strong>
+                    <p>Morning Shift (09:00 – 18:00) · Mon, 11 Nov</p>
+                    <small>Reason: Family function · Leave pay ₹400 / day</small>
+                  </div>
+                </div>
+
+                <div className="override-actions">
+                  <p className="actions-label">Owner Review (approval sets attendance to LEAVE):</p>
+                  <div className="action-buttons">
+                    <button
+                      type="button"
+                      className={`btn-action btn-green ${leaveStatus === "APPROVED" ? "selected" : ""}`}
+                      onClick={() => setLeaveStatus("APPROVED")}
+                    >
+                      Approve Leave
+                    </button>
+                    <button
+                      type="button"
+                      className={`btn-action btn-danger ${leaveStatus === "REJECTED" ? "selected" : ""}`}
+                      onClick={() => setLeaveStatus("REJECTED")}
+                    >
+                      Reject
+                    </button>
+                  </div>
+
+                  {leaveStatus === "APPROVED" && (
+                    <div className="action-status-msg">
+                      <CheckIcon className="icon-xs" /> Attendance marked <strong>LEAVE</strong> · ₹400 posted to the earning ledger.
+                    </div>
+                  )}
+                  {leaveStatus === "REJECTED" && (
+                    <div className="action-status-msg action-status-danger">
+                      <XIcon className="icon-xs" /> Request rejected · the shift stays scheduled.
+                    </div>
+                  )}
+                  {leaveStatus === "PENDING" && (
+                    <p className="default-policy-note">
+                      * Pending requests wait for the owner. Only an approved request changes attendance and pay.
                     </p>
                   )}
                 </div>
@@ -166,7 +227,7 @@ export function InteractiveDemo() {
                 </span>
                 <div>
                   <span className="mini-val">Weekday Rosters</span>
-                  <span className="mini-lbl">Custom Pay Rules &amp; Half-Day Thresholds</span>
+                  <span className="mini-lbl">Shift creation, assignment &amp; half-day thresholds</span>
                 </div>
               </div>
 
@@ -215,7 +276,7 @@ export function InteractiveDemo() {
                     <MapPinIcon className="icon-sm" />
                     <div>
                       <strong>FusedLocation Geodesic Check</strong>
-                      <p>Distance: 12 m (inside 50 m premises geofence)</p>
+                      <p>Distance: 12 m (inside the 50 m premises geofence)</p>
                       <small>Andheri Branch · Lat/Lng geofence radius verified</small>
                     </div>
                   </div>
@@ -225,13 +286,20 @@ export function InteractiveDemo() {
                     <div>
                       <strong>Single Active Device Concurrency</strong>
                       <p>Session token verified via SHA-256 hash in PostgreSQL</p>
-                      <small>Signing in elsewhere revokes previous device session</small>
+                      <small>Signing in elsewhere revokes the previous device session</small>
                     </div>
                   </div>
                 </div>
 
                 <div className="sim-clocked-badge">
                   <CheckIcon className="icon-sm" /> Clocked In at 09:02 AM · PRESENT
+                </div>
+
+                <div className="sim-leave-row">
+                  <span className="sim-leave-label">
+                    <CalendarIcon className="icon-xs" /> Leave request · Mon, 11 Nov
+                  </span>
+                  <span className="pill pill-warning">Pending approval</span>
                 </div>
               </div>
 

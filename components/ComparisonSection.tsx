@@ -31,6 +31,13 @@ const comparisonData: ComparisonRow[] = [
     genericHr: "Cloud processing",
   },
   {
+    feature: "Leave Requests & Owner Approval",
+    presence: true,
+    paperRegister: "Paper slips",
+    hardwareMachine: false,
+    genericHr: true,
+  },
+  {
     feature: "Periodic Shift GPS Pings (~10 min)",
     presence: true,
     paperRegister: false,

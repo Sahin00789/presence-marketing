@@ -5,10 +5,10 @@ import { DownloadButtons } from "@/components/DownloadButtons";
 import { FaqSection } from "@/components/FaqSection";
 import { Header } from "@/components/Header";
 import {
-  BellIcon,
   CalendarIcon,
   ChartIcon,
   CheckIcon,
+  ClockIcon,
   FaceIcon,
   LockIcon,
   LogoMark,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const stats = [
   { value: "50 m", label: "Default premises geofence radius" },
   { value: "~10 min", label: "Live location pings on shift" },
-  { value: ">3", label: "Outside pings before owner alert" },
+  { value: "1", label: "Premises workspace in version 1" },
   { value: "100%", label: "Integer-rupee salary ledger (₹)" },
 ];
 
@@ -45,31 +45,31 @@ const features = [
   {
     icon: MapPinIcon,
     title: "Live Shift Geofence Monitoring",
-    body: "Active shifts receive location checks roughly every 10 minutes. Three consecutive outside pings trigger an exception alert on the Owner Dashboard.",
+    body: "Active shifts receive location checks roughly every 10 minutes. Three consecutive outside pings open an exception, and the owner can mark it Absent or Half-Day until the shift finishes. No action defaults to Present.",
     tone: "emerald",
   },
   {
-    icon: CalendarIcon,
-    title: "Weekday Rosters & Shift Rules",
-    body: "Define weekday shifts with start/end times, half-day threshold minutes, and per-day pay rates (Present, Absent, Leave, Half-Day) per employee and premises.",
+    icon: ClockIcon,
+    title: "Shift Creation & Assignment",
+    body: "Create weekday shifts with start and end times, a half-day threshold time, and Present, Absent, Leave and Half-Day pay rates. Assign them straight from an employee card in the single premises roster.",
     tone: "amber",
+  },
+  {
+    icon: CalendarIcon,
+    title: "Leave Requests & Owner Approval",
+    body: "Employees raise leave against their assigned shift. The owner approves or rejects from the dashboard, and an approved request automatically marks attendance as Leave at the leave pay rate.",
+    tone: "indigo",
   },
   {
     icon: WalletIcon,
     title: "Append-Only Salary Ledger",
     body: "Every present day, holiday, off-day and overtime entry is recorded in whole Indian Rupees (₹) in an append-only ledger linking directly to source records.",
-    tone: "indigo",
+    tone: "emerald",
   },
   {
     icon: ChartIcon,
     title: "Owner-Locked Payroll Engine",
     body: "The owner reviews month-end earnings, locks monthly payroll, and records salary disbursements via Bank Transfer, UPI, or Cash with itemized payslips.",
-    tone: "emerald",
-  },
-  {
-    icon: BellIcon,
-    title: "One Dashboard, All Premises",
-    body: "Filter rosters and attendance by premises. Manually mark shifts as Absent, Half-Day, Leave, or Resume tracking until the shift or overtime finishes.",
     tone: "amber",
   },
 ] as const;
@@ -82,18 +82,18 @@ const ledgerRows = [
 
 const steps = [
   {
-    title: "Register & Set Up Premises",
-    body: "Sign in with Email OTP or Google OAuth, create your organization, and configure premises with address & 50m geofence radius.",
+    title: "Register & Set Up Your Premises",
+    body: "Sign in with Email OTP or Google OAuth, create your organization, and configure your single premises with address & 50m geofence radius.",
     icon: ShieldIcon,
   },
   {
     title: "Add Staff & Assign Shifts",
-    body: "Add employees to premises, enrol their face ONNX template on-device, and assign weekday shifts with custom pay rules.",
+    body: "Add employees, enrol their face ONNX template on-device, create weekday shifts with pay rules, and assign them from each employee card.",
     icon: FaceIcon,
   },
   {
-    title: "Run Shift & Lock Payroll",
-    body: "Staff clock in with face + GPS. Resolve exception alerts live on the dashboard, review the append-only ledger, and lock monthly payroll.",
+    title: "Run Shifts & Lock Payroll",
+    body: "Staff clock in with face + GPS. Approve leave requests, resolve exception alerts live, review the append-only ledger, and lock monthly payroll.",
     icon: WalletIcon,
   },
 ];
@@ -145,7 +145,8 @@ export default function HomePage() {
               </h1>
               <p className="hero-lede">
                 {site.name} replaces paper registers and expensive hardware with geofenced clock-ins,
-                YuNet + SFace ONNX face verification, weekday shift rosters, and an append-only whole-rupee salary ledger.
+                YuNet + SFace ONNX face verification, weekday shift rosters, leave approvals, and an
+                append-only whole-rupee salary ledger — all for one premises workspace.
               </p>
 
               <DownloadButtons howItWorks />
@@ -153,6 +154,9 @@ export default function HomePage() {
               <ul className="hero-points">
                 <li>
                   <CheckIcon className="icon-xs" /> Zero biometric hardware
+                </li>
+                <li>
+                  <CheckIcon className="icon-xs" /> One premises workspace (v1)
                 </li>
                 <li>
                   <CheckIcon className="icon-xs" /> Offline Room DB queueing
@@ -185,7 +189,7 @@ export default function HomePage() {
               <p className="eyebrow">Live App Simulator</p>
               <h2>Experience presence in action</h2>
               <p className="lede">
-                Explore how owners manage premises and resolve alerts live, while employees clock in securely with YuNet + SFace face verification.
+                Explore how owners approve leave, resolve geofence alerts and manually mark Absent or Half-Day, while employees clock in securely with YuNet + SFace face verification.
               </p>
             </div>
 
@@ -200,7 +204,7 @@ export default function HomePage() {
               <p className="eyebrow">Everything in one app</p>
               <h2>Built for the way small teams actually work</h2>
               <p className="lede">
-                One app for owners and staff. No spreadsheets to reconcile, no biometric hardware machines, no month-end payroll guessing.
+                One app for owners and staff. One premises, no location switching, no spreadsheets to reconcile, no biometric hardware machines, no month-end payroll guessing.
               </p>
             </div>
 
@@ -331,7 +335,8 @@ export default function HomePage() {
               <p className="eyebrow">Tailored for your business</p>
               <h2>Designed for all types of workforce setups</h2>
               <p className="lede">
-                Whether you manage a single shop or dozens of field teams, presence adapts to your exact setup.
+                Built for teams that work from one premises. Version 1 keeps setup to a single premises
+                workspace per organization, with the geofence and roster configured for that location.
               </p>
             </div>
 

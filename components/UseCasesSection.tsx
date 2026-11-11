@@ -3,12 +3,12 @@ import { BuildingIcon, CalendarIcon, MapPinIcon, ShieldIcon } from "./Icons";
 const useCases = [
   {
     icon: BuildingIcon,
-    title: "Retail Shops & Multi-Branch Chains",
-    subtitle: "Manage staff across multiple shop locations with top premises selectors.",
+    title: "Retail Shops & Local Chains",
+    subtitle: "Run your whole shop team from one premises workspace.",
     points: [
-      "Set individual 50m geofences for each shop location",
+      "Set one 50m geofence around your shop",
       "Assign weekday shifts with morning & evening timings",
-      "Owner gets instant alert when staff leave premises mid-shift",
+      "Owner gets an instant alert when staff leave the premises mid-shift",
     ],
     tone: "indigo",
   },
@@ -18,7 +18,7 @@ const useCases = [
     subtitle: "Coordinate shift rosters, weekly off-days, and overtime tracking.",
     points: [
       "Configure holiday & weekly off-day payment multipliers",
-      "Track overtime worked with owner approval",
+      "Approve overtime before it is worked",
       "Append-only ledger ensures transparent earnings for workers",
     ],
     tone: "emerald",
@@ -28,7 +28,7 @@ const useCases = [
     title: "Restaurants & Hospitality",
     subtitle: "Eliminate proxy attendance during split shifts and peak hours.",
     points: [
-      "On-device face verification matches face templates in 1 second",
+      "On-device face verification matches face templates in about a second",
       "Single-device restriction stops staff clocking in for friends",
       "Half-day thresholds handle half shifts automatically",
     ],
@@ -37,7 +37,7 @@ const useCases = [
   {
     icon: MapPinIcon,
     title: "Field & Project Sites",
-    subtitle: "Monitor remote site teams even when connectivity is intermittent.",
+    subtitle: "Monitor your site team even when connectivity is intermittent.",
     points: [
       "Offline face verification runs locally using ONNX Runtime",
       "Queues attendance locally and syncs when back online",

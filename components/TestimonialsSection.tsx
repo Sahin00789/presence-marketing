@@ -3,10 +3,10 @@ import { CheckIcon, LogoMark } from "./Icons";
 const testimonials = [
   {
     quote:
-      "We saved over ₹24,000 in our first month alone by eliminating proxy clock-ins across our 3 retail outlets. The on-device face verification is instant and flawless.",
+      "We saved over ₹24,000 in our first month alone by eliminating proxy clock-ins at our store. The on-device face verification is instant and flawless.",
     name: "Vikram Malhotra",
     role: "Owner, Malhotra Garments & Retail",
-    premises: "3 Branches · 28 Employees",
+    premises: "Retail Store · 28 Employees",
   },
   {
     quote:
@@ -17,10 +17,10 @@ const testimonials = [
   },
   {
     quote:
-      "The 50m GPS geofence alert saved us when field staff were leaving sites early. Now, if someone pings outside 3 times, I get an immediate alert and can override attendance in one tap.",
+      "The 50m GPS geofence alert saved us when field staff were leaving the site early. Now, if someone pings outside 3 times, I get an immediate alert and can override attendance in one tap.",
     name: "Suresh Pillai",
     role: "Managing Partner, Zenith Builders",
-    premises: "4 Construction Sites · 60 Employees",
+    premises: "Construction Site · 60 Employees",
   },
 ];
 

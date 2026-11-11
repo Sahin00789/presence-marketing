@@ -1432,6 +1432,28 @@ h3 {
 
 }
 
+.demo-leave-box {
+  border: 1px solid var(--indigo-100);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #eef2ff, #ffffff);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.leave-icon-wrap {
+  background: var(--indigo-100);
+  color: var(--indigo-700);
+}
+
+.emp-avatar-emerald {
+  background: var(--emerald-50);
+  color: var(--emerald-700);
+}
+
+.action-status-danger {
+  color: var(--red-700);
+}
+
 .demo-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1552,6 +1574,28 @@ h3 {
   color: var(--emerald-700);
   font-weight: 700;
   border: 1px solid #a7f3d0;
+}
+
+.sim-leave-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.sim-leave-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--ink);
 }
 
 .ledger-sim-list {
@@ -2793,7 +2837,8 @@ h3 {
     gap: 12px;
   }
 
-  .demo-alert-box {
+  .demo-alert-box,
+  .demo-leave-box {
     padding: 16px;
   }
 

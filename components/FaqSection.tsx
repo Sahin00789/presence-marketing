@@ -14,12 +14,12 @@ const faqItems: FaqItem[] = [
   {
     category: "Setup & Devices",
     q: "How do employees sign in and get added to the organization?",
-    a: "The Owner registers the organization and directly adds employees to assigned premises. Employees can then sign in using Email 6-Digit OTP or Google OAuth 2.0. Unregistered employees cannot self-register.",
+    a: "The Owner registers the organization and directly adds employees to the premises. Employees can then sign in using Email 6-Digit OTP or Google OAuth 2.0. Unregistered employees cannot self-register.",
   },
   {
     category: "Attendance & GPS",
     q: "How does face verification work, and does it work offline?",
-    a: "face verification runs entirely on-device using ONNX Runtime Mobile with YuNet (face detector with 5 landmark alignment) and SFace (recognizer generating a 128-D embedding vector). It works offline, storing clock-ins inRoom database and syncing when connectivity returns.",
+    a: "Face verification runs entirely on-device using ONNX Runtime Mobile with YuNet (face detector with 5 landmark alignment) and SFace (recognizer generating a 128-D embedding vector). It works offline, storing clock-ins in the Room database and syncing when connectivity returns.",
   },
   {
     category: "Security & Privacy",
@@ -29,7 +29,17 @@ const faqItems: FaqItem[] = [
   {
     category: "Attendance & GPS",
     q: "What happens if an employee leaves the premises mid-shift?",
-    a: "While a shift is active, presence performs periodic GPS checks roughly every 10 minutes. If 3 consecutive pings occur outside the premises 50m geofence, an exception alert appears on the Owner Dashboard. The owner can mark the shift as Absent, Half-Day, Leave, or Resume tracking. If no action is taken before shift completion, attendance defaults to Present.",
+    a: "While a shift is active, presence performs periodic GPS checks roughly every 10 minutes. If 3 consecutive pings occur outside the premises 50m geofence, an exception alert appears on the Owner Dashboard. The owner can mark the shift as Absent, Half-Day, or Resume tracking, and those actions stay available until the shift or overtime completes. If no action is taken, attendance defaults to Present.",
+  },
+  {
+    category: "Attendance & GPS",
+    q: "How do leave requests and approvals work?",
+    a: "Employees raise a leave request against their assigned shift. The owner receives it on the dashboard and approves or rejects it. An approved request automatically marks attendance as LEAVE for that shift and posts the configured leave pay to the earning ledger. Pending or rejected requests never change attendance or pay.",
+  },
+  {
+    category: "Attendance & GPS",
+    q: "Can the owner manually correct an employee's attendance?",
+    a: "Yes. From the attendance view the owner can set a shift to Absent, Half-Day, Leave or Present with a correction reason. For a live exception on the Owner Dashboard, the available actions are Absent, Half-Day and Resume tracking, and they remain active until the shift or overtime completes.",
   },
   {
     category: "Payroll & Ledger",
@@ -42,9 +52,9 @@ const faqItems: FaqItem[] = [
     a: "No. presence enforces a strict single-device concurrency rule for all roles (Owner & Employee). Refresh tokens are SHA-256 hashed in PostgreSQL logged_devices table. Signing in on a new device immediately revokes all prior active device sessions.",
   },
   {
-    category: "Payroll & Ledger",
-    q: "Who can lock monthly payroll and create premises?",
-    a: "Only the Organization Owner holds organization-level administrative rights to add premises, configure shift pay rates, lock monthly payroll, and approve financial ledger adjustments. Owners are stored separately from the employee table.",
+    category: "Setup & Devices",
+    q: "How many premises does version 1 support?",
+    a: "Version 1 runs a single premises workspace per organization. The owner configures that premises address and its 50m geofence radius, and all employees, shifts and attendance are scoped to it. Only the Organization Owner can update premises settings, configure shift pay rates, lock monthly payroll, and approve ledger adjustments.",
   },
   {
     category: "Setup & Devices",

@@ -7,7 +7,7 @@ export const site = {
   name: "presence",
   tagline: "Attendance that runs itself.",
   description:
-    "GPS-geofenced clock-in, on-device face verification, shift rosters, append-only salary ledger, live exception alerts, and owner-locked monthly payroll for small businesses.",
+    "GPS-geofenced clock-in, on-device face verification, weekday shift rosters, leave requests with owner approval, an append-only salary ledger, live exception alerts, and owner-locked monthly payroll — built for one premises workspace.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://presence.app",
   apkUrl:
     process.env.NEXT_PUBLIC_APK_URL ??
