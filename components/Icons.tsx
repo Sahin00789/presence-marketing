@@ -248,6 +248,20 @@ export function RefreshCwIcon(props: IconProps) {
   );
 }
 
+export function FirebaseIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      <path d="M3.89 15.672L6.81 2.453a.5.5 0 01.93-.16l2.97 6.452L3.89 15.672zm16.22 0l-2.09-12.01a.5.5 0 00-.91-.18L12 11.23l8.11 4.442zm-8.86-5.83l-2.82-5.46a.5.5 0 00-.92.05l-6.2 11.24 9.94 5.51a.8.8 0 00.78 0l9.94-5.51-10.72-5.83z" />
+    </svg>
+  );
+}
+
 export function LogoMark({ className, id = "logo" }: { className?: string; id?: string }) {
   const gradientId = `${id}-gradient`;
   return (
