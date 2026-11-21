@@ -17,7 +17,7 @@ export const site = {
     "https://github.com/Sahin00789/presence-android-app/releases/latest",
   firebaseAppUrl:
     process.env.NEXT_PUBLIC_FIREBASE_APP_URL ??
-    "https://appdistribution.firebase.google.com/tester/apps/1:402010851729:android:a4614a8395bbcdc5043230/releases",
+    "https://appdistribution.firebase.google.com/testerapps/1:402010851729:android:a4614a8395bbcdc5043230/releases/6hc668arseqag?utm_source=firebase-console",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@presence.app",
   ads: {
     client: process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "",

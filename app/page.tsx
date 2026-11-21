@@ -513,6 +513,7 @@ export default function HomePage() {
           <nav className="footer-col" aria-label="Download">
             <h3>Download</h3>
             <a href={site.apkUrl}>Android APK</a>
+            <a href={site.firebaseAppUrl} target="_blank" rel="noopener noreferrer">Firebase App Distribution</a>
             <a href={site.releasesUrl}>Release notes</a>
           </nav>
 
