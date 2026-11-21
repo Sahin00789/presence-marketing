@@ -1954,6 +1954,22 @@ h3 {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+}
+
+/* Keep the title and its explanation on separate lines — inline <strong> and
+   <small> otherwise run together when the card gets narrow. */
+.demo-alert-title strong {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.demo-alert-title small {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 .alert-icon-wrap {
@@ -3141,12 +3157,16 @@ h3 {
   color: #fff;
 }
 
+/* Block-level so the secondary link always starts on its own line. */
 .cta-panel .btn {
+  display: flex;
+  width: fit-content;
   margin-top: 24px;
 }
 
 .cta-release-link {
-  display: inline-block;
+  display: block;
+  width: fit-content;
   margin-top: 14px;
   color: #c7d2fe;
   font-size: 0.88rem;
@@ -3444,10 +3464,27 @@ h3 {
   .demo-alert-header {
     flex-wrap: wrap;
     align-items: flex-start;
+    row-gap: 10px;
+  }
+
+  /* Give the title the full row so the warning badge wraps underneath it
+     instead of squeezing the long geofence explanation. */
+  .demo-alert-title {
+    flex: 1 1 100%;
   }
 
   .demo-alert-body {
     padding: 14px;
+    row-gap: 18px;
+  }
+
+  .employee-info {
+    align-items: flex-start;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sim-header {
@@ -3536,6 +3573,18 @@ h3 {
   .cta-panel {
     padding: 22px 18px;
     border-radius: var(--radius-lg);
+  }
+
+  .cta-panel .btn {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .cta-release-link {
+    width: 100%;
+    margin-top: 12px;
+    text-align: center;
   }
 
   .ad-slot {
@@ -3634,6 +3683,10 @@ h3 {
 
   .demo-tab span {
     font-size: 0.9rem;
+  }
+
+  .action-buttons {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .roi-calculator-card {
