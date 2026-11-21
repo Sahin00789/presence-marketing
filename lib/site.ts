@@ -26,7 +26,7 @@ export const site = {
 } as const;
 
 export const navLinks = [
-  { href: "#features", label: "Features" },
+  { href: "#features", label: "App screens" },
   { href: "#demo", label: "Live Demo" },
   { href: "#calculator", label: "Savings" },
   { href: "#faq", label: "FAQ" },

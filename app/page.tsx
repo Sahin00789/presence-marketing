@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { AdSlot } from "@/components/AdSlot";
+import { AppScreens } from "@/components/AppScreens";
 import { DownloadButtons } from "@/components/DownloadButtons";
 import { FaqSection } from "@/components/FaqSection";
 import { Header } from "@/components/Header";
-import {
-  CalendarIcon,
-  CheckIcon,
-  ClockIcon,
-  FaceIcon,
-  MapPinIcon,
-  WalletIcon,
-} from "@/components/Icons";
+import { CheckIcon } from "@/components/Icons";
 import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { Reveal } from "@/components/Reveal";
@@ -21,33 +15,6 @@ export const metadata: Metadata = {
   title: `${site.name} — ${site.tagline}`,
   description: site.description,
 };
-
-const features = [
-  {
-    icon: FaceIcon,
-    title: "Face-verified clock-in",
-    body: "On-device YuNet + SFace matching inside the 50 m premises geofence. Raw camera frames never leave the phone.",
-    tone: "indigo",
-  },
-  {
-    icon: MapPinIcon,
-    title: "Live shift exceptions",
-    body: "Periodic GPS checks during shifts. Three outside pings raise an alert the owner can resolve in one tap.",
-    tone: "emerald",
-  },
-  {
-    icon: ClockIcon,
-    title: "Shifts, leave & overtime",
-    body: "Weekday rosters with pay rates, leave requests with owner approval, and approved overtime.",
-    tone: "amber",
-  },
-  {
-    icon: WalletIcon,
-    title: "Salary ledger & payroll",
-    body: "Every earning is recorded in whole rupees (₹), traced to its source, then locked into monthly payroll by the owner.",
-    tone: "indigo",
-  },
-] as const;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -130,28 +97,19 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* FEATURES */}
+        {/* APP SCREENS */}
         <section className="section section-muted" id="features">
           <div className="container">
             <Reveal className="section-head">
-              <p className="eyebrow">Everything in one app</p>
-              <h2>Built for the way small teams work</h2>
+              <p className="eyebrow">Inside the app</p>
+              <h2>Every screen from the real Android app</h2>
+              <p className="lede">
+                The same employee and owner workspaces you use on the phone — clock-in, register,
+                payroll, rosters, leave, overtime, geofences and reports.
+              </p>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="feature-grid">
-                {features.map((feature) => {
-                  const Icon = feature.icon;
-                  return (
-                    <article className="feature-card" key={feature.title}>
-                      <span className={`feature-icon feature-icon-${feature.tone}`}>
-                        <Icon className="icon" />
-                      </span>
-                      <h3>{feature.title}</h3>
-                      <p>{feature.body}</p>
-                    </article>
-                  );
-                })}
-              </div>
+              <AppScreens />
             </Reveal>
           </div>
         </section>

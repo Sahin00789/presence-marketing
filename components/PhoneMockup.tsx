@@ -1,13 +1,14 @@
 import {
+  BellIcon,
+  BuildingIcon,
   CalendarIcon,
   CheckIcon,
   ClockIcon,
   FaceIcon,
   MapPinIcon,
+  MenuIcon,
   WalletIcon,
 } from "./Icons";
-
-const gpsChecks = ["09:12", "09:22", "09:32"];
 
 export function PhoneMockup() {
   return (
@@ -18,7 +19,7 @@ export function PhoneMockup() {
       <div
         className="phone"
         role="img"
-        aria-label="presence Android Clock In tab showing YuNet and SFace ONNX face match, FusedLocation 50m geofence, today's shift and GPS monitoring checks"
+        aria-label="presence Clock In tab showing an assigned geofence premises, live GPS distance, shift time breakdown and earning rates"
       >
         <div className="phone-notch" aria-hidden="true" />
         <div className="phone-screen">
@@ -31,70 +32,97 @@ export function PhoneMockup() {
             </span>
           </div>
 
+          <div className="app-toolbar">
+            <span className="app-toolbar-menu" aria-hidden="true">
+              <MenuIcon className="icon-xs" />
+            </span>
+            <img src="/presence_logo_120x120.png" alt="" className="app-toolbar-logo" />
+            <span className="app-toolbar-copy">
+              <strong>Presence</strong>
+              <small>Andheri Branch · Employee</small>
+            </span>
+            <span className="app-toolbar-bell" aria-hidden="true">
+              <BellIcon className="icon-xs" />
+            </span>
+          </div>
+
           <div className="app-head">
-            <div>
-              <p className="app-hello">Good morning, Aisha</p>
-              <p className="app-sub">Mon, 4 Nov · Andheri Branch (50m Geofence)</p>
+            <div className="app-title-row">
+              <strong className="app-title">Clock In</strong>
+              <span className="ui-badge ui-badge-success">
+                <i aria-hidden="true" /> Shift in Progress
+              </span>
             </div>
-            <span className="app-avatar">A</span>
+            <p className="app-sub">Monday, 4 Nov · Shift attendance &amp; GPS</p>
           </div>
 
-          <div className="app-card app-clock">
-            <div className="app-clock-top">
-              <span className="pill pill-present">
-                <CheckIcon className="icon-xs" /> Clocked In · PRESENT
+          <div className="app-card app-premises">
+            <div className="ui-card-head">
+              <span className="ui-icon ui-icon-emerald">
+                <BuildingIcon className="icon-sm" />
               </span>
-              <span className="app-clock-time">09:02 AM</span>
-            </div>
-            <p className="app-clock-label">Face + GPS Verified</p>
-            <div className="app-verify">
-              <span className="verify-chip">
-                <FaceIcon className="icon-xs" /> YuNet + SFace (128-D)
+              <span className="ui-card-copy">
+                <strong>Andheri Branch</strong>
+                <small>Assigned Geofence Premises</small>
               </span>
-              <span className="verify-chip">
-                <MapPinIcon className="icon-xs" /> FusedLocation 12 m
+              <span className="ui-badge ui-badge-success ui-badge-tiny">
+                <i aria-hidden="true" /> Inside
               </span>
             </div>
-          </div>
 
-          <div className="app-card app-shift">
-            <div className="app-row">
-              <span className="app-row-icon">
-                <CalendarIcon className="icon-sm" />
-              </span>
+            <div className="ui-metrics">
               <div>
-                <p className="app-row-title">Morning Shift (Mon)</p>
-                <p className="app-row-sub">09:00 – 18:00 · ₹800 present / ₹400 half-day</p>
+                <small>Current Distance</small>
+                <strong className="ui-ok">12 m</strong>
+              </div>
+              <div>
+                <small>Allowed Boundary</small>
+                <strong>50 m</strong>
+              </div>
+              <div>
+                <small>GPS Accuracy</small>
+                <strong className="ui-ok">±4 m</strong>
               </div>
             </div>
-            <span className="pill pill-soft">Active</span>
-          </div>
 
-          <div className="app-card app-gps">
-            <div className="app-week-head">
-              <p className="app-row-title">GPS Monitoring Checks</p>
-              <span className="app-week-badge">3 inside</span>
-            </div>
-            <div className="app-gps-track">
-              {gpsChecks.map((time) => (
-                <span className="app-gps-ping" key={time}>
-                  <span className="app-gps-dot" aria-hidden="true" />
-                  {time}
-                </span>
-              ))}
-              <span className="app-gps-next">next ~10 min</span>
+            <div className="ui-meter" aria-hidden="true"><span /></div>
+
+            <div className="ui-card-foot">
+              <span>18.8792° N, 72.8777° E</span>
+              <button type="button" tabIndex={-1}>Update GPS</button>
             </div>
           </div>
 
-          <div className="app-card app-earn">
-            <span className="app-row-icon app-row-icon-emerald">
-              <WalletIcon className="icon-sm" />
-            </span>
-            <div>
-              <p className="app-row-sub">Today&apos;s earning rate</p>
-              <p className="app-earn-value">₹800</p>
+          <div className="app-card app-shift-card">
+            <div className="ui-card-head">
+              <span className="ui-icon ui-icon-indigo">
+                <CalendarIcon className="icon-sm" />
+              </span>
+              <span className="ui-card-copy">
+                <strong>Morning Shift</strong>
+                <small>Mon, 4 Nov · Scheduled Shift</small>
+              </span>
+              <span className="ui-badge ui-badge-success ui-badge-tiny">In Progress</span>
             </div>
-            <span className="app-earn-cta">Ledger ›</span>
+
+            <p className="ui-section-label">Time Breakdown</p>
+            <div className="ui-time-grid">
+              <div><small>Scheduled Window</small><strong>09:00 – 18:00</strong></div>
+              <div><small>Clock-In Time</small><strong className="ui-ok">09:02 · On time</strong></div>
+              <div><small>Clock-Out Time</small><strong>Pending</strong></div>
+              <div><small>Evaluated Status</small><strong className="ui-ok">Present</strong></div>
+            </div>
+
+            <p className="ui-section-label">Shift Earning Rates</p>
+            <div className="ui-pay-chips">
+              <span className="ui-pay-chip active"><small>Present</small><strong>₹800</strong></span>
+              <span className="ui-pay-chip"><small>Half-Day</small><strong>₹400</strong></span>
+              <span className="ui-pay-chip"><small>Absent</small><strong>₹0</strong></span>
+            </div>
+
+            <button type="button" className="ui-clock-out" tabIndex={-1}>
+              <CheckIcon className="icon-xs" /> Clock Out
+            </button>
           </div>
 
           <div className="app-tabs" aria-hidden="true">
@@ -117,7 +145,7 @@ export function PhoneMockup() {
         </span>
         <div>
           <strong>Inside 50 m Geofence</strong>
-          <small>FusedLocation · Geodesic calculation</small>
+          <small>FusedLocation · geodesic distance</small>
         </div>
       </div>
 
@@ -126,8 +154,8 @@ export function PhoneMockup() {
           <FaceIcon className="icon-sm" />
         </span>
         <div>
-          <strong>YuNet + SFace ONNX Engine</strong>
-          <small>128-D embedding · Raw frame discarded</small>
+          <strong>Face Verified Clock-In</strong>
+          <small>Encrypted 128-D embedding</small>
         </div>
       </div>
     </div>
