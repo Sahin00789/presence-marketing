@@ -27,10 +27,7 @@ export const site = {
 
 export const navLinks = [
   { href: "#features", label: "Features" },
-  { href: "#demo", label: "App Demo" },
-  { href: "#calculator", label: "ROI Savings" },
-  { href: "#ledger", label: "Salary Ledger" },
-  { href: "#comparison", label: "Why presence" },
-  { href: "#how-it-works", label: "How It Works" },
+  { href: "#demo", label: "Live Demo" },
+  { href: "#calculator", label: "Savings" },
   { href: "#faq", label: "FAQ" },
 ] as const;

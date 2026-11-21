@@ -261,26 +261,3 @@ export function FirebaseIcon(props: IconProps) {
     </svg>
   );
 }
-
-export function LogoMark({ className, id = "logo" }: { className?: string; id?: string }) {
-  const gradientId = `${id}-gradient`;
-  return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="0" x2="32" y2="32">
-          <stop offset="0%" stopColor="#6366f1" />
-          <stop offset="100%" stopColor="#4338ca" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="9" fill={`url(#${gradientId})`} />
-      <path
-        d="m9.5 16.4 4.2 4.2 8.8-9.2"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="2.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}

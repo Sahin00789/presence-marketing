@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg" }],
+    icon: [{ url: "/presence_logo_120x120.png", type: "image/png" }],
+    apple: [{ url: "/presence_logo_512x512.png", type: "image/png" }],
   },
 };
 

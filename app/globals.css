@@ -480,10 +480,10 @@ h3 {
 }
 
 .brand-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  box-shadow: 0 8px 18px -10px rgba(67, 56, 202, 0.9);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .brand-name {
@@ -1116,8 +1116,8 @@ h3 {
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .feature-card {
@@ -1255,24 +1255,6 @@ h3 {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-}
-
-.chip {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.chip-active {
-  background: var(--indigo-600);
-  color: #fff;
-  border-color: var(--indigo-600);
 }
 
 .demo-alert-box {
@@ -1969,53 +1951,6 @@ h3 {
   gap: 28px;
 }
 
-.faq-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 980px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.search-input-wrap {
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted-light);
-}
-
-.faq-search-input {
-  width: 100%;
-  padding: 14px 20px 14px 48px;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: var(--surface);
-  font-size: 0.95rem;
-  font-family: inherit;
-  outline: none;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
-}
-
-.faq-search-input:focus {
-  border-color: var(--indigo-500);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-}
-
-.faq-category-chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-
 .faq-accordion-list {
   display: flex;
   flex-direction: column;
@@ -2056,21 +1991,7 @@ h3 {
   background: var(--bg);
 }
 
-.faq-acc-q {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.faq-acc-cat {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--indigo-600);
-  letter-spacing: 0.05em;
-}
-
-.faq-acc-q strong {
+.faq-acc-trigger strong {
   font-size: 1rem;
   color: var(--ink);
 }
@@ -2090,12 +2011,6 @@ h3 {
   font-size: 0.94rem;
   color: var(--muted);
   line-height: 1.6;
-}
-
-.faq-empty {
-  text-align: center;
-  padding: 40px;
-  color: var(--muted);
 }
 
 .faq-footer-note {
@@ -2515,10 +2430,9 @@ h3 {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  gap: clamp(32px, 5vw, 64px);
-  align-items: center;
-  padding: clamp(36px, 6vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  padding: clamp(28px, 4vw, 48px);
   border-radius: var(--radius-xl);
   color: #e2e8f0;
   background:
@@ -2541,54 +2455,30 @@ h3 {
 
 .cta-copy {
   position: relative;
+  max-width: 620px;
 }
 
 .cta-copy h2 {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   color: #fff;
 }
 
-.cta-copy .download-buttons {
-  margin-top: 32px;
+.cta-panel .btn {
+  margin-top: 24px;
 }
 
-.cta-meta {
-  position: relative;
-  display: grid;
-  gap: 14px;
-}
-
-.cta-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.cta-meta-icon {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  flex: none;
-  border-radius: 10px;
-  background: rgba(165, 180, 252, 0.15);
+.cta-release-link {
+  display: inline-block;
+  margin-top: 14px;
   color: #c7d2fe;
-}
-
-.cta-meta-row strong {
-  display: block;
   font-size: 0.88rem;
-  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.cta-meta-row small {
-  display: block;
-  font-size: 0.75rem;
-  color: #9aa8bd;
+.cta-release-link:hover {
+  color: #fff;
 }
 
 /* ---------- footer ---------- */
@@ -2756,24 +2646,58 @@ h3 {
   }
 
   .section {
-    padding: 56px 0;
+    padding: 36px 0;
   }
 
   .section-head {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 
-  .stat-strip {
-    grid-template-columns: minmax(0, 1fr);
+  .hero {
+    padding: 36px 0 24px;
   }
 
-  .feature-grid,
-  .use-cases-grid {
+  .hero::before,
+  .cta-glow {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+    margin-bottom: 14px;
+  }
+
+  .hero-lede {
+    font-size: 1rem;
+    margin-bottom: 22px;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 8px;
+  }
+
+  .feature-grid {
     grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .feature-card {
+    padding: 18px;
+  }
+
+  .feature-icon {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 12px;
+    border-radius: 12px;
   }
 
   .lede {
-    font-size: 1.02rem;
+    font-size: 0.96rem;
   }
 
   .stat {
@@ -2787,15 +2711,11 @@ h3 {
   .download-buttons {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
   }
 
   .download-buttons .btn {
     width: 100%;
-  }
-
-  .download-link {
-    justify-content: center;
-    margin: 6px 0 0;
   }
 
   .house-ad {
@@ -2809,11 +2729,12 @@ h3 {
   }
 
   .phone {
-    width: min(310px, 100%);
+    width: min(260px, 100%);
   }
 
   .phone-screen {
-    height: 580px;
+    height: 500px;
+    gap: 7px;
   }
 
   /* Demo panel */
@@ -2934,26 +2855,26 @@ h3 {
     gap: 6px 12px;
   }
 
-  /* CTA panel keeps its trust points instead of hiding them */
   .cta-panel {
-    padding: 28px 20px;
+    padding: 22px 18px;
     border-radius: var(--radius-lg);
   }
 
-  .cta-copy .download-buttons {
-    margin-top: 24px;
+  .ad-slot {
+    padding: 10px;
+    margin: 12px 0;
   }
 
-  .cta-meta-row {
-    padding: 12px 14px;
+  .house-ad {
+    padding: 14px;
   }
 
   .faq-acc-trigger {
-    padding: 16px 16px;
+    padding: 13px 14px;
   }
 
   .faq-acc-content {
-    padding: 0 16px 18px;
+    padding: 0 14px 14px;
   }
 
   .test-head {
@@ -2965,9 +2886,13 @@ h3 {
     padding: 24px 20px;
   }
 
+  .site-footer {
+    padding-top: 40px;
+  }
+
   .footer-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
+    gap: 22px;
   }
 
   .footer-bottom {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { navLinks, site } from "@/lib/site";
-import { ArrowRightIcon, LogoMark, MenuIcon, XIcon } from "./Icons";
+import { MenuIcon, XIcon } from "./Icons";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,21 +29,10 @@ export function Header() {
 
   return (
     <>
-      <div className="topbar">
-        <span className="topbar-dot" aria-hidden="true" />
-        <p>
-          <strong>Now available for Android.</strong> GPS &amp; Face verified attendance, shift rosters, and payroll in one app.
-        </p>
-        <a href="#demo">
-          Try the live demo
-          <ArrowRightIcon className="icon-xs" />
-        </a>
-      </div>
-
       <header className="site-header">
         <div className="container header-inner">
           <a className="brand" href="#top" aria-label={`${site.name} home`}>
-            <LogoMark className="brand-mark" />
+            <img src="/presence_logo_120x120.png" alt="" className="brand-mark" />
             <span className="brand-name">{site.name}</span>
           </a>
 
@@ -89,7 +78,7 @@ export function Header() {
           <div className="mobile-nav-panel" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-nav-head">
               <a className="brand" href="#top" onClick={() => setMobileMenuOpen(false)}>
-                <LogoMark className="brand-mark" />
+                <img src="/presence_logo_120x120.png" alt="" className="brand-mark" />
                 <span className="brand-name">{site.name}</span>
               </a>
               <button
