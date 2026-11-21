@@ -8,7 +8,7 @@ export const site = {
   tagline: "Attendance that runs itself.",
   description:
     "GPS-geofenced clock-in, on-device face verification, weekday shift rosters, leave requests with owner approval, an append-only salary ledger, live exception alerts, and owner-locked monthly payroll — built for one premises workspace.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://presence.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://presence-selfattendance.vercel.app",
   apkUrl:
     process.env.NEXT_PUBLIC_APK_URL ??
     "https://github.com/Sahin00789/presence-android-app/releases/latest/download/presence.apk",
@@ -18,7 +18,7 @@ export const site = {
   firebaseAppUrl:
     process.env.NEXT_PUBLIC_FIREBASE_APP_URL ??
     "https://appdistribution.firebase.google.com/testerapps/1:402010851729:android:a4614a8395bbcdc5043230/releases/6hc668arseqag?utm_source=firebase-console",
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@presence.app",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "sahin401099@gmail.com",
   ads: {
     client: process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "",
     slot: process.env.NEXT_PUBLIC_ADSENSE_SLOT ?? "",
