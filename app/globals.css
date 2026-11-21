@@ -2007,6 +2007,7 @@ h3 {
 }
 
 .faq-acc-content {
+  overflow: hidden;
   padding: 0 22px 20px;
   font-size: 0.94rem;
   color: var(--muted);
@@ -2900,26 +2901,40 @@ h3 {
     align-items: flex-start;
   }
 
-  .topbar {
-    padding: 8px 16px;
+  /* Keep long badges, labels and addresses inside their cards on phones. */
+  .pill {
+    max-width: 100%;
+    white-space: normal;
   }
 
-  .topbar p {
-    display: none;
+  .demo-header-bar,
+  .demo-alert-header,
+  .demo-alert-title,
+  .demo-mini-card,
+  .res-box,
+  .employee-info,
+  .footer-col {
+    min-width: 0;
   }
 
-  .topbar a {
-    margin-left: 0;
+  .demo-header-bar > div,
+  .demo-alert-title > div,
+  .demo-mini-card > div,
+  .employee-info > div,
+  .footer-col a,
+  .res-box > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
 
 @media (max-width: 400px) {
   .hero-copy h1 {
-    font-size: clamp(2.1rem, 1.4rem + 4vw, 2.6rem);
+    font-size: clamp(2rem, 1.4rem + 4vw, 2.4rem);
   }
 
   .phone-screen {
-    height: 560px;
+    height: 460px;
     gap: 7px;
     padding: 10px 10px 0;
   }
@@ -2932,8 +2947,68 @@ h3 {
     padding: 8px 2px 12px;
   }
 
+  .demo-stage {
+    padding: 12px;
+  }
+
+  .demo-tab {
+    padding: 12px 8px;
+  }
+
+  .demo-tab span {
+    font-size: 0.9rem;
+  }
+
+  .roi-calculator-card {
+    padding: 18px 14px;
+  }
+
+  .calc-head {
+    margin-bottom: 22px;
+  }
+
+  .primary-result {
+    padding: 20px 16px;
+  }
+
+  .res-amount {
+    font-size: 2rem;
+  }
+
+  .footer-grid {
+    gap: 18px;
+  }
+
+  .hero-points {
+    gap: 6px 12px;
+    font-size: 0.8rem;
+  }
+
   .btn-lg {
-    padding: 13px 18px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    width: min(100% - 20px, var(--container));
+  }
+
+  .demo-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .phone {
+    width: min(230px, 100%);
+  }
+
+  .phone-screen {
+    height: 420px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 }
 

@@ -1,11 +1,13 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { navLinks, site } from "@/lib/site";
 import { MenuIcon, XIcon } from "./Icons";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   // Lock background scrolling while the mobile drawer is open.
   useEffect(() => {
@@ -66,16 +68,28 @@ export function Header() {
       {/* Rendered outside <header> on purpose: the header's backdrop-filter would
           otherwise become the containing block for this fixed-position overlay
           and trap the drawer inside the 64px header strip. */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-nav-overlay"
-          id="mobile-nav"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site menu"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div className="mobile-nav-panel" onClick={(e) => e.stopPropagation()}>
+      <AnimatePresence>
+        {mobileMenuOpen ? (
+          <motion.div
+            className="mobile-nav-overlay"
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <motion.div
+              className="mobile-nav-panel"
+              initial={reduceMotion ? false : { x: "100%" }}
+              animate={{ x: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { x: "100%" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
             <div className="mobile-nav-head">
               <a className="brand" href="#top" onClick={() => setMobileMenuOpen(false)}>
                 <img src="/presence_logo_120x120.png" alt="" className="brand-mark" />
@@ -112,9 +126,10 @@ export function Header() {
                 Download APK
               </a>
             </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

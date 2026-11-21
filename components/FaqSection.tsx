@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { ChevronDownIcon } from "./Icons";
@@ -37,6 +38,7 @@ const faqs = [
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="faq-container">
@@ -54,11 +56,19 @@ export function FaqSection() {
                 <strong>{item.q}</strong>
                 <ChevronDownIcon className={`icon-sm faq-acc-icon ${isOpen ? "rotate" : ""}`} />
               </button>
-              {isOpen ? (
-                <div className="faq-acc-content">
-                  <p>{item.a}</p>
-                </div>
-              ) : null}
+              <AnimatePresence initial={false}>
+                {isOpen ? (
+                  <motion.div
+                    className="faq-acc-content"
+                    initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  >
+                    <p>{item.a}</p>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             </div>
           );
         })}

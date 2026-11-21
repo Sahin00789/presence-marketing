@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import {
   AlertTriangleIcon,
@@ -23,6 +24,7 @@ export function InteractiveDemo() {
   const [activeTab, setActiveTab] = useState<"owner" | "employee">("owner");
   const [exceptionStatus, setExceptionStatus] = useState<ExceptionStatus>("ALERT");
   const [leaveStatus, setLeaveStatus] = useState<LeaveStatus>("PENDING");
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="demo-card-container">
@@ -49,8 +51,16 @@ export function InteractiveDemo() {
       </div>
 
       <div className="demo-stage">
-        {activeTab === "owner" ? (
-          <div className="demo-view owner-view">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeTab}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            {activeTab === "owner" ? (
+              <div className="demo-view owner-view">
             <div className="demo-header-bar">
               <div>
                 <span className="eyebrow eyebrow-sm">Owner · Live Monitor tab</span>
@@ -239,11 +249,11 @@ export function InteractiveDemo() {
                   <span className="mini-val">Owner-Locked Payroll</span>
                   <span className="mini-lbl">Disburse via UPI / Bank / Cash</span>
                 </div>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="demo-view employee-view">
+          ) : (
+            <div className="demo-view employee-view">
             <div className="demo-header-bar">
               <div>
                 <span className="eyebrow eyebrow-sm">Employee · Clock In tab</span>
@@ -347,7 +357,9 @@ export function InteractiveDemo() {
               </div>
             </div>
           </div>
-        )}
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

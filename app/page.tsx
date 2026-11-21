@@ -13,6 +13,7 @@ import {
 } from "@/components/Icons";
 import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import { Reveal } from "@/components/Reveal";
 import { RoiCalculator } from "@/components/RoiCalculator";
 import { site } from "@/lib/site";
 
@@ -84,7 +85,7 @@ export default function HomePage() {
         {/* HERO */}
         <section className="hero" id="top">
           <div className="container hero-grid">
-            <div className="hero-copy">
+            <Reveal className="hero-copy">
               <p className="eyebrow">
                 <span className="eyebrow-dot" aria-hidden="true" />
                 Face + GPS attendance for small teams
@@ -105,65 +106,75 @@ export default function HomePage() {
                 <li><CheckIcon className="icon-xs" /> No biometric hardware needed</li>
                 <li><CheckIcon className="icon-xs" /> Android 8.0+ and offline queueing</li>
               </ul>
-            </div>
+            </Reveal>
 
-            <PhoneMockup />
+            <Reveal delay={0.12}>
+              <PhoneMockup />
+            </Reveal>
           </div>
         </section>
 
         {/* LIVE DEMO */}
         <section className="section" id="demo">
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <p className="eyebrow">Live App Simulator</p>
               <h2>See presence in action</h2>
               <p className="lede">
                 Approve leave, resolve geofence alerts and check the salary ledger — then clock in with face verification.
               </p>
-            </div>
-            <InteractiveDemo />
+            </Reveal>
+            <Reveal delay={0.08}>
+              <InteractiveDemo />
+            </Reveal>
           </div>
         </section>
 
         {/* FEATURES */}
         <section className="section section-muted" id="features">
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <p className="eyebrow">Everything in one app</p>
               <h2>Built for the way small teams work</h2>
-            </div>
-            <div className="feature-grid">
-              {features.map((feature) => {
-                const Icon = feature.icon;
-                return (
-                  <article className="feature-card" key={feature.title}>
-                    <span className={`feature-icon feature-icon-${feature.tone}`}>
-                      <Icon className="icon" />
-                    </span>
-                    <h3>{feature.title}</h3>
-                    <p>{feature.body}</p>
-                  </article>
-                );
-              })}
-            </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div className="feature-grid">
+                {features.map((feature) => {
+                  const Icon = feature.icon;
+                  return (
+                    <article className="feature-card" key={feature.title}>
+                      <span className={`feature-icon feature-icon-${feature.tone}`}>
+                        <Icon className="icon" />
+                      </span>
+                      <h3>{feature.title}</h3>
+                      <p>{feature.body}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </Reveal>
           </div>
         </section>
 
         {/* SAVINGS */}
         <section className="section" id="calculator">
           <div className="container">
-            <RoiCalculator />
+            <Reveal>
+              <RoiCalculator />
+            </Reveal>
           </div>
         </section>
 
         {/* FAQ */}
         <section className="section section-muted" id="faq">
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <p className="eyebrow">FAQ</p>
               <h2>Common questions</h2>
-            </div>
-            <FaqSection />
+            </Reveal>
+            <Reveal delay={0.08}>
+              <FaqSection />
+            </Reveal>
           </div>
         </section>
 
@@ -174,23 +185,25 @@ export default function HomePage() {
         {/* DOWNLOAD */}
         <section className="section" id="download">
           <div className="container">
-            <div className="cta-panel">
-              <div className="cta-glow" aria-hidden="true" />
-              <div className="cta-copy">
-                <p className="eyebrow eyebrow-on-dark">Get the app</p>
-                <h2>Put the register away for good</h2>
-                <p className="lede lede-on-dark">
-                  Download {site.name} for Android, add your premises, and run your first verified shift today.
-                </p>
-                <a className="btn btn-primary btn-lg btn-on-dark" href={site.apkUrl}>
-                  <CheckIcon className="icon" />
-                  Download APK
-                </a>
-                <a className="cta-release-link" href={site.releasesUrl}>
-                  View release notes
-                </a>
+            <Reveal>
+              <div className="cta-panel">
+                <div className="cta-glow" aria-hidden="true" />
+                <div className="cta-copy">
+                  <p className="eyebrow eyebrow-on-dark">Get the app</p>
+                  <h2>Put the register away for good</h2>
+                  <p className="lede lede-on-dark">
+                    Download {site.name} for Android, add your premises, and run your first verified shift today.
+                  </p>
+                  <a className="btn btn-primary btn-lg btn-on-dark" href={site.apkUrl}>
+                    <CheckIcon className="icon" />
+                    Download APK
+                  </a>
+                  <a className="cta-release-link" href={site.releasesUrl}>
+                    View release notes
+                  </a>
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>
